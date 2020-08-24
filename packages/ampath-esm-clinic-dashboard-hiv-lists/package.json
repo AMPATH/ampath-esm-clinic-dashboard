@@ -1,5 +1,5 @@
 {
-  "name": "@ampath/esm-clinic-dashboard-hiv-lists",
+  "name": "@ampath/esm-clinic-dashboard-hiv-lists-app",
   "version": "0.1.0",
   "description": "The list reports for the HIV departement.",
   "keywords": [
@@ -24,13 +24,24 @@
   "scripts": {
     "start": "webpack-dev-server --port ${port:-8080}",
     "build": "webpack --mode production",
-    "test": "jest"
+    "test": "jest --config jest.config.json"
   },
   "bugs": {
     "url": "https://github.com/AMPATH/ampath-esm-clinic-dashboard/issues"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test",
+      "pre-push": "yarn test"
+    }
+  },
   "dependencies": {
-    "single-spa-react": "^2.10.2"
+    "@ag-grid-enterprise/excel-export": "^23.2.1",
+    "ag-grid-community": "^23.2.1",
+    "ag-grid-react": "^23.2.1",
+    "css-loader": "^4.2.1",
+    "single-spa-react": "^2.10.2",
+    "style-loader": "^1.2.1"
   },
   "devDependencies": {
     "@openmrs/esm-api": "^1.2.2",

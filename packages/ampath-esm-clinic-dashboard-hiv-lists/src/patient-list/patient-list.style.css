@@ -1,0 +1,64 @@
+.patient-list-container {
+  display: flex;
+  margin: 1rem;
+  padding: 1.625rem;
+  border: 0.0625rem solid var(--omrs-color-ink-lowest-contrast);
+  border-radius: 0.25rem;
+  background: var(--omrs-color-ink-white);
+  flex-direction: column;
+}
+
+.header {
+  border-bottom: 0.0625rem solid var(--omrs-color-ink-lowest-contrast);
+  margin-bottom: 0.25rem;
+  font-size: 1.5rem;
+}
+
+.header > span {
+  margin: 0.25rem 0.125rem;
+}
+
+* a {
+  text-decoration: none;
+  color: #337ab7;
+}
+
+.ag-header-cell-label {
+  /* Necessary to allow for text to grow vertically */
+  height: 100%;
+  padding: 0 !important;
+}
+
+.ag-grid-report-container > div {
+  margin: 0.25rem 0.125rem;
+  border: 0.0625rem solid var(--omrs-color-bg-medium-contrast);
+  height: 400px;
+  width: 100%;
+}
+
+.ag-header {
+  color: var(--omrs-color-ink-white);
+}
+
+.ag-theme-blue .ag-icon {
+  color: var(--omrs-color-ink-white);
+}
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.125rem;
+  align-items: center;
+}
+
+.button-container > button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: #337ab7;
+  color: var(--omrs-color-ink-white);
+}
+
+.button-container > button svg {
+  margin-left: 0.325rem;
+  fill: var(--omrs-color-ink-white);
+}

@@ -5,7 +5,8 @@
     "packages/*"
   ],
   "scripts": {
-    "debug": "lerna run start --scope @ampath/esm-clinic-dashboard-${name:-hiv-lists} --stream",
+    "debug": "lerna run start --scope @ampath/esm-clinic-dashboard-${name:-hiv-lists}-app --stream",
+    "test": "lerna run test --scope @ampath/esm-clinic-dashboard-${name:-hiv-lists}-app",
     "build": "lerna run build --stream",
     "prettier": "prettier"
   },
@@ -32,5 +33,12 @@
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "@testing-library/dom": "^7.22.5",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^10.4.9",
+    "husky": "^4.2.5",
+    "identity-obj-proxy": "^3.0.0"
   }
 }

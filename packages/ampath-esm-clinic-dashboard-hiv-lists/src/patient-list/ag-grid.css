@@ -1,0 +1,15 @@
+.color-red {
+  cursor: default;
+}
+
+.ag-theme-blue .ag-icon-menu:before {
+  color: var(--omrs-color-ink-white);
+}
+
+.ag-theme-blue .ag-icon-desc:before {
+  color: var(--omrs-color-ink-white);
+}
+
+.ag-theme-blue .ag-icon-asc:before {
+  color: var(--omrs-color-ink-white);
+}

@@ -24,12 +24,22 @@ module.exports = {
             loader: "css-loader",
             options: {
               modules: {
-                localIdentName: "esm-home__[name]__[local]___[hash:base64:5]",
+                localIdentName:
+                  "esm-clinic-dashboard-hiv-list__[name]__[local]___[hash:base64:5]",
               },
             },
           },
         ],
+        include: /\.style.css$/
       },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ],
+        exclude: /\.style\.css$/
+      }
     ],
   },
   devtool: "sourcemap",

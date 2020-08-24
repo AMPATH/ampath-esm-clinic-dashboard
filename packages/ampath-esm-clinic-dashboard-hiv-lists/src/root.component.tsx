@@ -5,7 +5,7 @@ import openmrsRootDecorator from "@openmrs/react-root-decorator";
 
 const Home: React.FC = () => <div>Hello World!</div>;
 
-const moduleName = "@ampath/esm-clinic-dashboard-hiv-lists";
+const moduleName = "@ampath/esm-clinic-dashboard-hiv-lists-app";
 
 defineConfigSchema(moduleName, {});
 

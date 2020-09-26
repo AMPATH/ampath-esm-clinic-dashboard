@@ -6,10 +6,11 @@ export function fetchCrossBorderPatientList(
   startDate: string,
   endDate: string,
   indicator: string,
-  abortController: AbortController
+  abortController: AbortController,
+  limit: number = 300
 ) {
   return amrsFetch(
-    `/MOH-731-report/patient-list?startIndex=0&endDate=${endDate}&startDate=${startDate}&reportName=MOH-731-report-2017&indicator=${indicator}&locationUuids=${locationUuids}&limit=300`,
+    `/MOH-731-report/patient-list?startIndex=0&endDate=${endDate}&startDate=${startDate}&reportName=MOH-731-report-2017&indicator=${indicator}&locationUuids=${locationUuids}&limit=${limit}`,
     {
       signal: abortController.signal,
     }

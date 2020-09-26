@@ -21,7 +21,7 @@ export const HIVListsRoutes: Array<Routes> = [
   { name: "cross-border-report", path: "/home/cross-border-report", component: CrossBorderReport},
   {
     name: "cross-border-patient-list",
-    path: "/home/cross-border-patient-list/:locationUuids?/:month?/:indicators?/:indicatorName?",
+    path: "/home/cross-border-patient-list/:locationUuids?/:month?/:indicators?/:indicatorName?/:totalRecords?",
     component: CrossBorderPatientList,
   },
 ];

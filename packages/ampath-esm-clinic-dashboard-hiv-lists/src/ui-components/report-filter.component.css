@@ -8,8 +8,8 @@
   margin: 0.625rem 0.625rem 0rem 0.625rem;
   border: 0.0625rem solid lightgrey;
   padding: 0.125rem;
-  color: var(--omrs-color-interaction);
-  fill: var(--omrs-color-interaction);
+  color: #428bca;
+  fill: #428bca;
 }
 
 .report-filter-container span:nth-child(1) {

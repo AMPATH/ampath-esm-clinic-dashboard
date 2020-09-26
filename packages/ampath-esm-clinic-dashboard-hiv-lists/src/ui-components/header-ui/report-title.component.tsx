@@ -22,7 +22,7 @@ const ReportTitle: React.FC<ReportTitleProps> = ({ title }) => {
       <div>
         <button
           style={{ marginLeft: "0.625rem", cursor: "pointer" }}
-          className="omrs-btn omrs-filled-action"
+          className={`omrs-btn ${styles['button']}`}
           onClick={() => history.push("/home")}
         >
           Back

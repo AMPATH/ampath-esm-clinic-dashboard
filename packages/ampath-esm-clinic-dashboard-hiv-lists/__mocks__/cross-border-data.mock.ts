@@ -20864,7 +20864,7 @@ export const mockCrossBorderPatientListResponse = [
     is_cross_border_this_month: 1,
     patient_uuid: "12535686910",
     uuid: "12535686910",
-    person_name: "TEST PATIENT TWO",
+    person_name: "SAMPLE PATIENT TWO",
     identifiers: "15834-16668, 22695BS-6",
     phone_number: "0795441405",
     latest_rtc_date: "2020-11-10",

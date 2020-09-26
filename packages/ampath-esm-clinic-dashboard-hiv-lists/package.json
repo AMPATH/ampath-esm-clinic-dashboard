@@ -24,7 +24,9 @@
   "scripts": {
     "start": "webpack-dev-server --port ${port:-8080} --https",
     "build": "webpack --mode production",
-    "test": "jest --config jest.config.json"
+    "test": "jest --config jest.config.json",
+    "test-watch": "jest --config  jest.config.json --watch=true",
+    "coverage": "jest --config jest.config.json --coverage"
   },
   "bugs": {
     "url": "https://github.com/AMPATH/ampath-esm-clinic-dashboard/issues"

@@ -2,10 +2,18 @@
   display: flex;
   justify-content: flex-end;
   margin: 0.625rem;
+  
 }
 
 .reportButton > button {
   cursor: pointer;
+  background-color: #428bca;
+  color: var(--omrs-color-ink-white);
+  fill: var(--omrs-color-ink-white);
+}
+
+.reportButton > button:hover {
+  background-color: #456de4;
 }
 
 .report-filters {

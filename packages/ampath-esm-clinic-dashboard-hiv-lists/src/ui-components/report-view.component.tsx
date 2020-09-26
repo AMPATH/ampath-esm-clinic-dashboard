@@ -18,9 +18,10 @@ const ReportView: React.FC<EtlReportData> = ({
 
   const navigateToPatientList = (indicators) => {
     const { patientListUrl } = params;
-    history.push(
-      `${patientListUrl}/${indicators.field}/${indicators.indicatorName}`
-    );
+    (indicators?.value !== 0 && indicators?.value !== undefined) &&
+      history.push(
+        `${patientListUrl}/${indicators.field}/${indicators.indicatorName}/${indicators.value}`
+      );
   };
 
   return (
@@ -41,7 +42,7 @@ const ReportView: React.FC<EtlReportData> = ({
                     onClick={() =>
                       navigateToPatientList({
                         field: child.field,
-                        value: child.value[0].value,
+                        value: child?.value[0]?.value,
                         indicatorName: child.headerName,
                       })
                     }

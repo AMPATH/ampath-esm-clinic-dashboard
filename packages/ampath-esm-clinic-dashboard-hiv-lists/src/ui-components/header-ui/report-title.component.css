@@ -16,3 +16,13 @@
 .header span {
   padding-right: 0.625rem;
 }
+
+.button {
+  background-color: #428bca;
+  color: var(--omrs-color-ink-white);
+  fill: var(--omrs-color-ink-white);
+}
+
+.button:hover {
+  background-color: #456de4;
+}

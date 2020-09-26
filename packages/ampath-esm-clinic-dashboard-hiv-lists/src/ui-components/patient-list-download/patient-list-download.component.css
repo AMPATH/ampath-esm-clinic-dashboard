@@ -1,0 +1,50 @@
+.container {
+    display: flex;
+    margin: -0.5rem 0.625rem 0rem 0.625rem;
+    justify-content: space-between;
+    background-color: #d9edf7;
+    padding: 0.625rem;
+    color: #008000;
+    font-size: 18px;
+    fill: #008000;
+    line-height: 1px;
+    font-family: 'Times New Roman', Times, serif;
+    border-radius: 0.125rem;
+    align-items: center;
+}
+
+.container-records {
+    display: flex;
+    align-items: center;
+    white-space: pre;
+}
+
+.load-all-records {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.325rem 0.625rem;
+    font-size: 18px;
+    white-space: pre;
+    border-radius: 0.25rem;
+    color: #d9edf7;
+    background-color: #008000;
+    margin: 0rem 0.625rem;
+    border: 0.0625rem solid #008000;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.load-all-records:focus {
+    outline: none;
+}
+
+.load-all-records:hover{
+    background-color: #008000f6;
+}
+
+.download-button {
+    display: flex;
+    align-items: center;
+    fill: var(--omrs-color-interaction);
+    cursor: pointer;
+}

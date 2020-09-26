@@ -16,11 +16,15 @@ td {
 }
 
 .reportTableHeader {
-  background-color: var(--omrs-color-interaction-plus-one);
+  background-color: #428bca;
   color: var(--omrs-color-ink-white);
 }
 
 .indicator:hover {
   cursor: pointer;
   background-color: #eff2fc;
+}
+
+.reportViewContainer table tr :focus {
+  outline: none;
 }

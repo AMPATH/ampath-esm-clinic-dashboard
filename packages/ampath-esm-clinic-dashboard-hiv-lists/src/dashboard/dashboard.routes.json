@@ -4,5 +4,11 @@
     "description": "Cross border integration Report",
     "url": "/home/cross-border-report",
     "icon": "omrs-icon-menu"
+  },
+  {
+    "name": "OVC REPORT",
+    "description": "OVC Report",
+    "url": "/home/ovc-report",
+    "icon": "omrs-icon-menu"
   }
 ]

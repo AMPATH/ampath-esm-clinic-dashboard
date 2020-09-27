@@ -26,7 +26,7 @@ function CrossBorderPatientList(props: {
     indicators,
     locationUuids,
     indicatorName,
-    totalRecords
+    totalRecords,
   } = props.match.params;
   const [limit, setLimit] = React.useState<number>(300);
   let history = useHistory();
@@ -44,12 +44,20 @@ function CrossBorderPatientList(props: {
     return () => ac.abort();
   }, [month, locationUuids, limit]);
 
+  React.useEffect(() => {
+    window.frames.parent.scrollTo(0,0);
+  },[])
+
   return (
     <div>
       <div>
         {crossBorderPatientList && (
           <button
-            style={{ marginLeft: "0.625rem", cursor: "pointer", backgroundColor: "#428bca" }}
+            style={{
+              marginLeft: "0.625rem",
+              cursor: "pointer",
+              backgroundColor: "#428bca",
+            }}
             className="omrs-btn omrs-filled-action"
             onClick={() => history.goBack()}
           >
@@ -65,11 +73,16 @@ function CrossBorderPatientList(props: {
             indicator={indicators}
             indicatorName={indicatorName}
           />
-          <PatientListDownload results={crossBorderPatientList} loadAllRecords={setLimit} totalRecords={Number(totalRecords)} />
+          <PatientListDownload
+            results={crossBorderPatientList}
+            loadAllRecords={setLimit}
+            totalRecords={Number(totalRecords)}
+            indicatorName={indicatorName}
+          />
         </>
       ) : (
-          <div>Loading ...</div>
-        )}
+        <div>Loading ...</div>
+      )}
     </div>
   );
 }
@@ -80,7 +93,7 @@ const columnsDef: Array<colDef> = [
   {
     headerName: "#",
     field: "#",
-    cellRender: (value) => (<span>{value.rowNumber}</span>)
+    cellRender: (value) => <span>{value.rowNumber}</span>,
   },
   {
     headerName: "Identifiers",
@@ -89,7 +102,7 @@ const columnsDef: Array<colDef> = [
       <a href="#" title="providercount">
         {value.value}
       </a>
-    )
+    ),
   },
   {
     headerName: "Name",

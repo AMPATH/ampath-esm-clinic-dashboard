@@ -1,16 +1,19 @@
 import React from "react";
 import styles from "./patient-list-download.component.css";
+import CsvDownloader from 'react-csv-downloader';
 
 interface PatientListDownloadProps {
   results: Array<any>;
   loadAllRecords: Function;
   totalRecords: number;
+  indicatorName: string;
 }
 
 const PatientListDownload: React.FC<PatientListDownloadProps> = ({
   results,
   loadAllRecords,
   totalRecords,
+  indicatorName
 }) => {
   return (
     <div className={styles["container"]}>
@@ -36,11 +39,13 @@ const PatientListDownload: React.FC<PatientListDownloadProps> = ({
         )}
       </div>
       <div>
-        <button
-          className={`${styles["download-button"]} omrs-btn omrs-outlined-action omrs-rounded`}
-        >
-          <span>Download</span>
-        </button>
+        <CsvDownloader datas={results} filename={`Patient List ${indicatorName} ${new Date().toDateString()}`}>
+          <button
+            className={`${styles["download-button"]} omrs-btn omrs-outlined-action omrs-rounded`}
+          >
+            <span>Download</span>
+          </button>
+        </CsvDownloader>
       </div>
     </div>
   );

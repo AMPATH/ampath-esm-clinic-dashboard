@@ -36,9 +36,7 @@ const PatientList: React.FC<PatientListProps> = ({
           <thead>
             <tr>
               {columnsDef.map((column) => (
-                <th key={column.headerName}>
-                  <div>{column.headerName}</div>
-                </th>
+                <th key={column.headerName}>{column.headerName}</th>
               ))}
             </tr>
           </thead>
@@ -49,9 +47,9 @@ const PatientList: React.FC<PatientListProps> = ({
                   <td key={col.field} style={col.cellStyle}>
                     {col.cellRender
                       ? col.cellRender({
-                        value: rowData[col.field],
-                        rowNumber: index+1,
-                      })
+                          value: rowData[col.field],
+                          rowNumber: index + 1,
+                        })
                       : rowData[col.field]}
                   </td>
                 ))}

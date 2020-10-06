@@ -30,20 +30,8 @@ export function amrsFetch<T = any>(
           });
         }
       } else {
-        return response.text().then(
-          (responseText) => {
-            let responseBody = responseText;
-            try {
-              responseBody = JSON.parse(responseText);
-              throw new Error(responseBody);
-            } catch (err) {
-              return err;
-            }
-          },
-          (err) => {
-            throw new err();
-          }
-        );
+        // The response is not 200 indicating an error
+        throw new Error(response.statusText);
       }
     });
 }

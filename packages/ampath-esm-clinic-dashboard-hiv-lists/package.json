@@ -22,7 +22,8 @@
     "url": "git+https://github.com/AMPATH/ampath-esm-clinic-dashboard.git"
   },
   "scripts": {
-    "start": "webpack-dev-server --port ${port:-8080} --https",
+    "start:standalone": "webpack-dev-server --port ${port:-8080} --https",
+    "start": "openmrs debug --run-project --port ${port:-8080}",
     "build": "webpack --mode production",
     "test": "jest --config jest.config.json",
     "test-watch": "jest --config  jest.config.json --watch=true",
@@ -33,6 +34,9 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.11.5"
+  },
+  "peerDependencies": {
+    
   },
   "devDependencies": {
     "@openmrs/esm-api": "^3.0.0",

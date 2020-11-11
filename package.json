@@ -6,6 +6,7 @@
   ],
   "scripts": {
     "debug": "lerna run start --scope @ampath/esm-clinic-dashboard-${name:-hiv-lists}-app --stream",
+    "debug:standalone": "lerna run start --scope @ampath/esm-clinic-dashboard-${name:-hiv-lists}-app --stream",
     "test": "lerna run test",
     "build": "lerna run build --stream",
     "prettier": "prettier"

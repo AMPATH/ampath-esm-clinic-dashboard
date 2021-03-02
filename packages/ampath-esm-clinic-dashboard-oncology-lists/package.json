@@ -29,14 +29,8 @@
   "bugs": {
     "url": "https://github.com/AMPATH/ampath-esm-clinic-dashboard/issues"
   },
-  "dependencies": {
-    "single-spa-react": "^2.10.2"
-  },
   "devDependencies": {
-    "@openmrs/esm-api": "^1.2.2",
-    "@openmrs/esm-error-handling": "^1.1.0",
-    "@openmrs/esm-module-config": "^1.2.0",
-    "@openmrs/react-root-decorator": "^2.0.0",
+    "@openmrs/esm-framework": "next",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
     "@types/react-router": "^5.0.3",

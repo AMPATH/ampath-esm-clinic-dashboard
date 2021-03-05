@@ -8,7 +8,27 @@ interface PatientListDownloadProps {
   totalRecords: number;
   indicatorName: string;
 }
-
+const columnDefs = [
+  {
+    id: "identifiers",
+    displayName: "Identifiers",
+  },
+  { id: "person_name", displayName: "Name" },
+  { id: "enrollment_date", displayName: "Enrollment date" },
+  { id: "age", displayName: "Age" },
+  { id: "ovc_identifier", displayName: "OVC ID" },
+  { id: "vl_1", displayName: "Latest VL" },
+  { id: "vl_1_date", displayName: "Latest vl date" },
+  { id: "county", displayName: "County" },
+  { id: "sub_county", displayName: "Sub County" },
+  { id: "ward", displayName: "Ward" },
+  { id: "last_appointment", displayName: "Last clinic date" },
+  { id: "latest_rtc_date", displayName: "Latest RTC" },
+  { id: "cur_arv_meds", displayName: "Current regimen" },
+  { id: "disclosure_status", displayName: "Disclosure" },
+  { id: "due_for_vl_this_month", displayName: "Due for Vl" },
+  { id: "status", displayName: "Status" },
+];
 const PatientListDownload: React.FC<PatientListDownloadProps> = ({
   results,
   loadAllRecords,
@@ -39,7 +59,7 @@ const PatientListDownload: React.FC<PatientListDownloadProps> = ({
         )}
       </div>
       <div>
-        <CsvDownloader datas={results} filename={`Patient List ${indicatorName} ${new Date().toDateString()}`}>
+        <CsvDownloader datas={results} columns={columnDefs} separator=";" filename={`Patient List ${indicatorName} ${new Date().toDateString()}`}>
           <button
             className={`${styles["download-button"]} omrs-btn omrs-outlined-action omrs-rounded`}
           >

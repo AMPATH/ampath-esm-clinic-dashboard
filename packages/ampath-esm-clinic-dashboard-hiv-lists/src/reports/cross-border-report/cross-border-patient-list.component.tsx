@@ -91,13 +91,13 @@ export default CrossBorderPatientList;
 
 const columnsDef: Array<colDef> = [
   {
-    headerName: "#",
-    field: "#",
+    header: "#",
+    key: "#",
     cellRender: (value) => <span>{value.rowNumber}</span>,
   },
   {
-    headerName: "Identifiers",
-    field: "identifiers",
+    header: "Identifiers",
+    key: "identifiers",
     cellRender: (value) => (
       <a href="#" title="providercount">
         {value.value}
@@ -105,67 +105,67 @@ const columnsDef: Array<colDef> = [
     ),
   },
   {
-    headerName: "Name",
-    field: "person_name",
+    header: "Name",
+    key: "person_name",
   },
   {
-    headerName: "Enrollment Date",
-    field: "enrollment_date",
+    header: "Enrollment Date",
+    key: "enrollment_date",
   },
   {
-    headerName: "Age",
-    field: "age",
+    header: "Age",
+    key: "age",
   },
   {
-    headerName: "OVC ID",
-    field: "ovc_identifier",
+    header: "OVC ID",
+    key: "ovc_identifier",
   },
   {
-    headerName: "Latest VL",
-    field: "vl_1",
+    header: "Latest VL",
+    key: "vl_1",
   },
   {
-    headerName: "Latest vl date",
-    field: "vl_1_date",
+    header: "Latest vl date",
+    key: "vl_1_date",
   },
   {
-    headerName: "County",
-    field: "county",
+    header: "County",
+    key: "county",
   },
   {
-    headerName: "Sub County",
-    field: "sub_county",
+    header: "Sub County",
+    key: "sub_county",
   },
   {
-    headerName: "Location",
-    field: "location",
+    header: "Location",
+    key: "location",
   },
   {
-    headerName: "Ward",
-    field: "ward",
+    header: "Ward",
+    key: "ward",
   },
   {
-    headerName: "Last Appointment",
-    field: "last_appointment",
+    header: "Last Appointment",
+    key: "last_appointment",
   },
   {
-    headerName: "Latest RTC",
-    field: "latest_rtc_date",
+    header: "Latest RTC",
+    key: "latest_rtc_date",
   },
   {
-    headerName: "Current Regimen",
-    field: "cur_arv_meds",
+    header: "Current Regimen",
+    key: "cur_arv_meds",
   },
   {
-    headerName: "Disclosure",
-    field: "disclosure_status",
+    header: "Disclosure",
+    key: "disclosure_status",
   },
   {
-    headerName: "Due for VL",
-    field: "due_for_vl_this_month",
+    header: "Due for VL",
+    key: "due_for_vl_this_month",
   },
   {
-    headerName: "Status",
-    field: "status",
+    header: "Status",
+    key: "status",
   },
 ];

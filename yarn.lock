@@ -2300,6 +2300,16 @@
     "@types/react" "*"
     flatpickr "4.6.1"
 
+"@types/carbon-components@^10.23.0":
+  version "10.27.0"
+  resolved "https://registry.yarnpkg.com/@types/carbon-components/-/carbon-components-10.27.0.tgz#899579f1ec769bb8068b3943e369b7053b625661"
+  integrity sha512-/GIo5AUfo9fhbILmrQVuzZVzEE5BxHLlB3haaGzr/o+P/1DLcaZd9vnd8WYq17Bi+uvsGGc/i9623eOkihToHg==
+
+"@types/carbon__icons-react@^10.24.0":
+  version "10.24.0"
+  resolved "https://registry.yarnpkg.com/@types/carbon__icons-react/-/carbon__icons-react-10.24.0.tgz#ec57a56c0dbb043132041ae20e4fe09c068b0138"
+  integrity sha512-cpsykaZQqh9oz43c/wxXhw5Z+0ngqB4nbf8DEAYS0h6BWVAor29439k2D5bRakyVzNj1sHbjnqLQ+rhFXcrJUg==
+
 "@types/fhir@0.0.30":
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/fhir/-/fhir-0.0.30.tgz#a0aec3b2d7dd2a7584474dac446ede5f9a4d7a13"
@@ -2496,7 +2506,7 @@
   dependencies:
     source-map "^0.6.1"
 
-"@types/webpack-env@^1.15.2":
+"@types/webpack-env@^1.15.2", "@types/webpack-env@^1.16.0":
   version "1.16.0"
   resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.16.0.tgz#8c0a9435dfa7b3b1be76562f3070efb3f92637b4"
   integrity sha512-Fx+NpfOO0CpeYX2g9bkvX8O5qh9wrU1sOF4g8sft4Mu7z+qfe387YlyY8w8daDyDsKY5vUxM0yxkAYnbkRbZEw==

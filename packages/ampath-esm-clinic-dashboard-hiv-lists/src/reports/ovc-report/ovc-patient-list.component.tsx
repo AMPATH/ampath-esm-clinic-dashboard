@@ -1,5 +1,4 @@
 import React from "react";
-import PatientList from "../../patient-list/patient-list.component";
 import { fetchOVCPatientList } from "./ovc-report.resource";
 import { colDef } from "../../types";
 import { useHistory } from "react-router-dom";
@@ -12,14 +11,16 @@ import DataTable, {
   TableHead,
   TableHeader,
   TableRow,
-} from "carbon-components-react/es/components/DataTable";
-import dayjs from "dayjs";
-import {
   TableToolbar,
+  TableToolbarAction,
   TableToolbarContent,
+  TableToolbarMenu,
   TableToolbarSearch,
-} from "carbon-components-react";
+} from "carbon-components-react/es/components/DataTable";
+import Button from "carbon-components-react/es/components/Button";
 import styles from "./ovc-report.component.css";
+import dayjs from "dayjs";
+
 function OVCPatientList(props) {
   const [limit, setLimit] = React.useState<number>(300);
   const [ovcReportData, setOvcReportData] = React.useState<Array<any>>();
@@ -44,28 +45,25 @@ function OVCPatientList(props) {
     );
   }, [indicators, endDate]);
   const tableRows = ovcReportData?.map((report, index) => {
-   
-
     return {
       id: `${index}`,
       identifiers: report.identifiers,
       person_name: report.person_name,
       enrollment_date: dayjs(report.enrollment_date).format(`DD - MMM - YYYY`),
-      age:report.age,
-      ovc_identifier:report.ovc_identifier,
-      vl_1_date:report.vl_1_date,
-      vl_1:report.vl_1,
-      county:report.county,
+      age: report.age,
+      ovc_identifier: report.ovc_identifier,
+      vl_1_date: report.vl_1_date,
+      vl_1: report.vl_1,
+      county: report.county,
       sub_county: report.sub_county,
-      location:report.location,
-      ward:report.ward,
-      last_appointment:report.last_appointment,
-      latest_rtc:report.latest_rtc,
-      current_regiment:report.cur_arv_meds,
-      disclosure:report.disclosure_status,
-      due_for_vl_this_month:report.due_for_vl_this_month,
-      status:report.status
-
+      location: report.location,
+      ward: report.ward,
+      last_appointment: report.last_appointment,
+      latest_rtc: report.latest_rtc,
+      current_regiment: report.cur_arv_meds,
+      disclosure: report.disclosure_status,
+      due_for_vl_this_month: report.due_for_vl_this_month,
+      status: report.status,
     };
   });
   React.useEffect(() => {
@@ -73,92 +71,72 @@ function OVCPatientList(props) {
   }, []);
 
   return (
-    <div>
+    <div className={styles.reportContainer}>
       <div>
         {ovcReportData && (
-          <button
-            style={{ marginLeft: "0.625rem", cursor: "pointer" }}
-            className="omrs-btn omrs-filled-action"
-            onClick={() => history.goBack()}
-          >
-            Back
-          </button>
+          <Button onClick={() => history.goBack()}>Go back</Button>
         )}
       </div>
-      {tableRows &&  (
-        <>
-        
-        <div className={styles.inputContainer}>
-        <TableContainer
-               title={`${indicatorName} Patient List`}
-
-               description="OVC">
-          <DataTable
-            rows={tableRows}
-            headers={columnsDef}
-            isSortable={true}
-            size="short"
-            onInputChange
-          >
+      {tableRows && (
+        <div className={styles.dataTableContainer}>
+          <DataTable rows={tableRows} headers={columnsDef}>
             {({
               rows,
               headers,
               getHeaderProps,
               getTableProps,
+              getToolbarProps,
               onInputChange,
-              getTableContainerProps,
-              getToolbarProps
             }) => (
-              <>
-                
-                  <TableToolbar {...getToolbarProps()} aria-label="data table toolbar">
-                    <TableToolbarContent>
-                      <TableToolbarSearch onChange={onInputChange} />
-                    </TableToolbarContent>
-                  </TableToolbar>
-
-                  <Table {...getTableProps()}>
-                    <TableHead>
-                      <TableRow>
-                        {headers.map((header) => (
-                          <TableHeader
-                            {...getHeaderProps({
-                              header,
-                              isSortable: header.isSortable,
-                            })}
-                          >
-                            {header.header?.content ?? header.header}
-                          </TableHeader>
+              <TableContainer
+                title={`${indicatorName} Patient List`}
+                description="OVC"
+              >
+                <TableToolbar
+                  {...getToolbarProps()}
+                  aria-label="data table toolbar"
+                >
+                  <TableToolbarContent>
+                    <TableToolbarSearch onChange={onInputChange} />
+                    <TableToolbarMenu light>
+                      <TableToolbarAction>Action 1</TableToolbarAction>
+                    </TableToolbarMenu>
+                  </TableToolbarContent>
+                </TableToolbar>
+                <Table
+                  className={styles.dataTableStyles}
+                  {...getTableProps()}
+                  size="compact"
+                >
+                  <TableHead>
+                    <TableRow>
+                      {headers.map((header) => (
+                        <TableHeader {...getHeaderProps({ header })}>
+                          {header.header}
+                        </TableHeader>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {rows.map((row) => (
+                      <TableRow key={row.id}>
+                        {row.cells.map((cell) => (
+                          <TableCell key={cell.id}>{cell.value}</TableCell>
                         ))}
                       </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {rows.map((row, i) => (
-                        <TableRow key={i}>
-                          
-
-                          {row.cells.map((cell) => (
-                            <TableCell key={cell.id} id={i}>
-                              {cell.value?.content ?? cell.value}
-                            </TableCell>
-                          ))}
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                
-              </>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             )}
           </DataTable>
-          </TableContainer>
-          </div>
           <PatientListDownload
             results={ovcReportData}
             loadAllRecords={setLimit}
             totalRecords={Number(totalRecords)}
             indicatorName={indicatorName}
           />
-        </>
+        </div>
       )}
     </div>
   );

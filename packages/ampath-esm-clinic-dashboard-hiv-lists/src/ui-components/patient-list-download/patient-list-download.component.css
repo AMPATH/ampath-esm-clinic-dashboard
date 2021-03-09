@@ -1,6 +1,5 @@
 .container {
     display: flex;
-    margin: -0.5rem 0.625rem 0rem 0.625rem;
     justify-content: space-between;
     background-color: #d9edf7;
     padding: 0.625rem;
@@ -11,6 +10,7 @@
     font-family: 'Times New Roman', Times, serif;
     border-radius: 0.125rem;
     align-items: center;
+    margin-top: 1rem;
 }
 
 .container-records {

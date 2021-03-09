@@ -134,7 +134,8 @@ function OVCPatientList(props) {
                     <TableBody>
                       {rows.map((row, i) => (
                         <TableRow key={i}>
-                          {console.log("asa", i, row)}
+                          
+
                           {row.cells.map((cell) => (
                             <TableCell key={cell.id} id={i}>
                               {cell.value?.content ?? cell.value}

@@ -44,7 +44,8 @@ function OVCPatientList(props) {
     );
   }, [indicators, endDate]);
   const tableRows = ovcReportData?.map((report, index) => {
-    console.log(report);
+   
+
     return {
       id: `${index}`,
       identifiers: report.identifiers,

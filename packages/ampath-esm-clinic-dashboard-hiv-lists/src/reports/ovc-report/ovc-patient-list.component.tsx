@@ -89,7 +89,8 @@ function OVCPatientList(props) {
         
         <div className={styles.inputContainer}>
         <TableContainer
-               title={indicatorName+" Patient List"}
+               title={`${indicatorName} Patient List`}
+
                description="OVC">
           <DataTable
             rows={tableRows}

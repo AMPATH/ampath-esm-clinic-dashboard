@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./patient-list-download.component.css";
-import CsvDownloader from 'react-csv-downloader';
+import CsvDownloader from "react-csv-downloader";
+import Button from "carbon-components-react/es/components/Button";
+import  Download32  from "@carbon/icons-react/lib/download/32";
 
 interface PatientListDownloadProps {
   results: Array<any>;
@@ -33,7 +35,7 @@ const PatientListDownload: React.FC<PatientListDownloadProps> = ({
   results,
   loadAllRecords,
   totalRecords,
-  indicatorName
+  indicatorName,
 }) => {
   return (
     <div className={styles["container"]}>
@@ -59,12 +61,13 @@ const PatientListDownload: React.FC<PatientListDownloadProps> = ({
         )}
       </div>
       <div>
-        <CsvDownloader datas={results} columns={columnDefs} separator=";" filename={`Patient List ${indicatorName} ${new Date().toDateString()}`}>
-          <button
-            className={`${styles["download-button"]} omrs-btn omrs-outlined-action omrs-rounded`}
-          >
-            <span>Download</span>
-          </button>
+        <CsvDownloader
+          datas={results}
+          columns={columnDefs}
+          separator=";"
+          filename={`Patient List ${indicatorName} ${new Date().toDateString()}`}
+        >
+          <Button kind="primary" renderIcon={Download32}>Download</Button>
         </CsvDownloader>
       </div>
     </div>

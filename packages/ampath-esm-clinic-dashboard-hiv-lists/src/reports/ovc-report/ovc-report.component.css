@@ -42,3 +42,29 @@
   color: var(--omrs-color-danger);
   margin: 0.125rem;
 }
+
+.dataTableContainer {
+  width: 100%;
+  overflow: scroll;
+  margin: 0;
+  padding: 0;
+}
+
+.dataTableStyles {
+  width: 100%;
+  overflow: scroll;
+  table-layout: fixed;
+}
+
+.dataTableStyles th,
+td {
+  width: 250px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: left;
+}
+
+.reportContainer {
+  margin: 0;
+}

@@ -25,7 +25,23 @@
   border: 0.0625rem solid lightgrey;
   padding: 0.625rem;
 }
+.dashInputContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 0rem 0.625rem;
+  padding: 0.625rem;
+  width: 100%;
+}
+.dashInputContainer label {
+  padding: 0.125rem 0rem;
+  font-weight: 500;
+}
 
+.dashInputContainer input {
+  outline: none;
+  border: 0.0625rem solid lightgrey;
+  padding: 0.625rem;
+}
 .error {
   display: flex;
   align-items: center;
@@ -67,4 +83,9 @@ td {
 
 .reportContainer {
   margin: 0;
+}
+.report-filters {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 }

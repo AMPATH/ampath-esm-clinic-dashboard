@@ -20,6 +20,7 @@ import DataTable, {
 import Button from "carbon-components-react/es/components/Button";
 import styles from "./ovc-report.component.css";
 import dayjs from "dayjs";
+import { useMessageEventHandler } from "../../custom-hooks/useMessageEventHandler";
 
 function OVCPatientList(props) {
   const [limit, setLimit] = React.useState<number>(300);
@@ -64,12 +65,19 @@ function OVCPatientList(props) {
       disclosure: report.disclosure_status,
       due_for_vl_this_month: report.due_for_vl_this_month,
       status: report.status,
+      patient_uuid:report.patient_uuid,
     };
   });
   React.useEffect(() => {
     window.frames.parent.scrollTo(0, 0);
   }, []);
-
+  const { sendMessage } = useMessageEventHandler();
+  const navigate = (patient_uuid) => {
+    sendMessage({
+      navigate: { patientUuid: patient_uuid },
+      action: "navigate",
+    });
+  };
   return (
     <div className={styles.reportContainer}>
       <div>
@@ -98,9 +106,7 @@ function OVCPatientList(props) {
                 >
                   <TableToolbarContent>
                     <TableToolbarSearch onChange={onInputChange} />
-                    <TableToolbarMenu light>
-                      <TableToolbarAction>Action 1</TableToolbarAction>
-                    </TableToolbarMenu>
+                  
                   </TableToolbarContent>
                 </TableToolbar>
                 <Table
@@ -118,8 +124,8 @@ function OVCPatientList(props) {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {rows.map((row) => (
-                      <TableRow key={row.id}>
+                    {rows.map((row,i) => (
+                      <TableRow key={row.id} onClick={() => navigate(row.cells[17].value)}>
                         {row.cells.map((cell) => (
                           <TableCell key={cell.id}>{cell.value}</TableCell>
                         ))}
@@ -212,5 +218,9 @@ const columnsDef: Array<colDef> = [
   {
     header: "Status",
     key: "status",
+  },
+  {
+    header: "Patient Uuid",
+    key: "patient_uuid",
   },
 ];

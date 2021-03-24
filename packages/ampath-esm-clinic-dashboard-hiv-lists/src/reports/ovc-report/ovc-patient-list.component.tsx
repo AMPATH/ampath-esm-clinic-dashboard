@@ -1,7 +1,7 @@
 import React from "react";
 import { fetchOVCPatientList } from "./ovc-report.resource";
 import { colDef } from "../../types";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import PatientListDownload from "../../ui-components/patient-list-download/patient-list-download.component";
 import DataTable, {
   Table,
@@ -20,9 +20,13 @@ import DataTable, {
 import Button from "carbon-components-react/es/components/Button";
 import styles from "./ovc-report.component.css";
 import dayjs from "dayjs";
-import { useMessageEventHandler } from "../../custom-hooks/useMessageEventHandler";
+import {
+  returnToUrlSub,
+  useMessageEventHandler,
+} from "../../custom-hooks/useMessageEventHandler";
 
 function OVCPatientList(props) {
+  const location = useLocation();
   const [limit, setLimit] = React.useState<number>(300);
   const [ovcReportData, setOvcReportData] = React.useState<Array<any>>();
   const {
@@ -36,21 +40,27 @@ function OVCPatientList(props) {
   let history = useHistory();
   let patientListTitle = "";
   React.useEffect(() => {
-    const ac = new AbortController();
-    patientListTitle += indicatorName + "Patient List";
-    fetchOVCPatientList(locationUuids, endDate, indicators, ac).then(
-      ({ data }) => setOvcReportData(data.result),
-      (erro) => {
-        console.error(erro);
-      }
-    );
+    if (indicators && endDate) {
+      const ac = new AbortController();
+      patientListTitle += indicatorName + "Patient List";
+      fetchOVCPatientList(locationUuids, endDate, indicators, ac).then(
+        ({ data }) => setOvcReportData(data.result),
+        (erro) => {
+          console.error(erro);
+        }
+      );
+      return () => ac.abort();
+    }
+    
   }, [indicators, endDate]);
   const tableRows = ovcReportData?.map((report, index) => {
     return {
       id: `${index}`,
       identifiers: report.identifiers,
       person_name: report.person_name,
-      enrollment_date: dayjs(report.enrollment_date).format(`DD - MMM - YYYY`),
+      enrollment_date: dayjs(new Date(report.enrollment_date)).format(
+        `DD - MMM - YYYY`
+      ),
       age: report.age,
       ovc_identifier: report.ovc_identifier,
       vl_1_date: report.vl_1_date,
@@ -65,7 +75,7 @@ function OVCPatientList(props) {
       disclosure: report.disclosure_status,
       due_for_vl_this_month: report.due_for_vl_this_month,
       status: report.status,
-      patient_uuid:report.patient_uuid,
+      patient_uuid: report.patient_uuid,
     };
   });
   React.useEffect(() => {
@@ -74,7 +84,16 @@ function OVCPatientList(props) {
   const { sendMessage } = useMessageEventHandler();
   const navigate = (patient_uuid) => {
     sendMessage({
-      navigate: { patientUuid: patient_uuid },
+      action: "storeParamsInUrl",
+      storeParamsInUrl: { returnToUrl: location.pathname },
+    });
+
+    sendMessage({
+      navigate: {
+        patientUuid: patient_uuid,
+        returnToUrl: location.pathname,
+        parentUrl: window.parent.location.href,
+      },
       action: "navigate",
     });
   };
@@ -82,7 +101,14 @@ function OVCPatientList(props) {
     <div className={styles.reportContainer}>
       <div>
         {ovcReportData && (
-          <Button onClick={() => history.goBack()}>Go back</Button>
+          <Button
+            onClick={() => {
+              returnToUrlSub.next("");
+              history.goBack();
+            }}
+          >
+            Go back
+          </Button>
         )}
       </div>
       {tableRows && (
@@ -106,7 +132,6 @@ function OVCPatientList(props) {
                 >
                   <TableToolbarContent>
                     <TableToolbarSearch onChange={onInputChange} />
-                  
                   </TableToolbarContent>
                 </TableToolbar>
                 <Table
@@ -124,8 +149,11 @@ function OVCPatientList(props) {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {rows.map((row,i) => (
-                      <TableRow key={row.id} onClick={() => navigate(row.cells[17].value)}>
+                    {rows.map((row, i) => (
+                      <TableRow
+                        key={row.id}
+                        onClick={() => navigate(row.cells[17].value)}
+                      >
                         {row.cells.map((cell) => (
                           <TableCell key={cell.id}>{cell.value}</TableCell>
                         ))}

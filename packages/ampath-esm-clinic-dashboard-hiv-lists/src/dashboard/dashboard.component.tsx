@@ -1,9 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { returnToUrlSub } from "../custom-hooks/useMessageEventHandler";
 import styles from "./dashboard.component.css";
 import routesJson from "./dashboard.routes.json";
 
 const Dashboard: React.FC = () => {
+  const history = useHistory();
+
+  React.useEffect(() => {
+    const sub = returnToUrlSub.subscribe((url) => {
+      if(url){
+        history.push(url);
+      }
+    });
+    return () => sub.unsubscribe();
+  }, []);
+
   return (
     <div className={styles["home-container"]}>
       {routesJson.map((routes) => (

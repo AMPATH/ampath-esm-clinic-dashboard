@@ -11,6 +11,9 @@
     border-radius: 0.125rem;
     align-items: center;
     margin-top: 1rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 .container-records {

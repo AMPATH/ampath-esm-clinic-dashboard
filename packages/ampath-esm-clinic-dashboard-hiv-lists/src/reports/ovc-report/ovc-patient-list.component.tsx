@@ -20,15 +20,16 @@ import DataTable, {
 import Button from "carbon-components-react/es/components/Button";
 import styles from "./ovc-report.component.css";
 import dayjs from "dayjs";
-import {
-  returnToUrlSub,
-  useMessageEventHandler,
-} from "../../custom-hooks/useMessageEventHandler";
+import { useMessageEventHandler } from "../../custom-hooks/useMessageEventHandler";
+import { usePaginate } from "../../hooks/use-paginate";
+import PatientChartPagination from "../../ui-components/pagination/pagination.component";
+import { InlineLoading } from "carbon-components-react";
 
 function OVCPatientList(props) {
   const location = useLocation();
   const [limit, setLimit] = React.useState<number>(300);
-  const [ovcReportData, setOvcReportData] = React.useState<Array<any>>();
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [ovcReportData, setOvcReportData] = React.useState<Array<any>>([]);
   const {
     endDate,
     locationUuids,
@@ -39,28 +40,37 @@ function OVCPatientList(props) {
 
   let history = useHistory();
   let patientListTitle = "";
+  const [pageNumber, setPageNumber] = React.useState(1);
+  const handlePageChange = ({ page }) => {
+    setPageNumber(page);
+  };
+
+  const [page] = usePaginate(ovcReportData, pageNumber, 300);
   React.useEffect(() => {
     if (indicators && endDate) {
       const ac = new AbortController();
       patientListTitle += indicatorName + "Patient List";
       fetchOVCPatientList(locationUuids, endDate, indicators, ac).then(
-        ({ data }) => setOvcReportData(data.result),
+        ({ data }) => {
+          setOvcReportData(data.result);
+          setIsLoading(false);
+        },
         (erro) => {
           console.error(erro);
+          setIsLoading(false);
         }
       );
       return () => ac.abort();
     }
-    
   }, [indicators, endDate]);
-  const tableRows = ovcReportData?.map((report, index) => {
+  const tableRows = page?.map((report, index) => {
     return {
-      id: `${index}`,
+      id: `${index + 1}`,
       identifiers: report.identifiers,
       person_name: report.person_name,
-      enrollment_date: dayjs(new Date(report.enrollment_date)).format(
-        `DD - MMM - YYYY`
-      ),
+      enrollment_date: report.enrollment_date
+        ? dayjs(new Date(report.enrollment_date)).format(`DD - MMM - YYYY`)
+        : "",
       age: report.age,
       ovc_identifier: report.ovc_identifier,
       vl_1_date: report.vl_1_date,
@@ -99,78 +109,94 @@ function OVCPatientList(props) {
   };
   return (
     <div className={styles.reportContainer}>
-      <div>
-        {ovcReportData && (
-          <Button
-            onClick={() => {
-              returnToUrlSub.next("");
-              history.goBack();
-            }}
-          >
-            Go back
-          </Button>
-        )}
-      </div>
-      {tableRows && (
-        <div className={styles.dataTableContainer}>
-          <DataTable rows={tableRows} headers={columnsDef}>
-            {({
-              rows,
-              headers,
-              getHeaderProps,
-              getTableProps,
-              getToolbarProps,
-              onInputChange,
-            }) => (
-              <TableContainer
-                title={`${indicatorName} Patient List`}
-                description="OVC"
+      {isLoading ? (
+        <InlineLoading description="Loading..." />
+      ) : (
+        <>
+          <div>
+            {ovcReportData && (
+              <Button
+                onClick={() => {
+                  history.goBack();
+                }}
               >
-                <TableToolbar
-                  {...getToolbarProps()}
-                  aria-label="data table toolbar"
-                >
-                  <TableToolbarContent>
-                    <TableToolbarSearch onChange={onInputChange} />
-                  </TableToolbarContent>
-                </TableToolbar>
-                <Table
-                  className={styles.dataTableStyles}
-                  {...getTableProps()}
-                  size="compact"
-                >
-                  <TableHead>
-                    <TableRow>
-                      {headers.map((header) => (
-                        <TableHeader {...getHeaderProps({ header })}>
-                          {header.header}
-                        </TableHeader>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row, i) => (
-                      <TableRow
-                        key={row.id}
-                        onClick={() => navigate(row.cells[17].value)}
-                      >
-                        {row.cells.map((cell) => (
-                          <TableCell key={cell.id}>{cell.value}</TableCell>
-                        ))}
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+                Go back
+              </Button>
             )}
-          </DataTable>
+          </div>
+          {tableRows && (
+            <div className={styles.dataTableContainer}>
+              <DataTable rows={tableRows} headers={columnsDef}>
+                {({
+                  rows,
+                  headers,
+                  getHeaderProps,
+                  getTableProps,
+                  getToolbarProps,
+                  onInputChange,
+                }) => (
+                  <TableContainer
+                    title={`${indicatorName} Patient List`}
+                    description="OVC"
+                  >
+                    <TableToolbar
+                      {...getToolbarProps()}
+                      aria-label="data table toolbar"
+                    >
+                      <TableToolbarContent>
+                        <TableToolbarSearch onChange={onInputChange} />
+                      </TableToolbarContent>
+                    </TableToolbar>
+                    <Table
+                      className={styles.dataTableStyles}
+                      {...getTableProps()}
+                      size="compact"
+                    >
+                      <TableHead>
+                        <TableRow>
+                          {headers.map((header) => (
+                            <TableHeader {...getHeaderProps({ header })}>
+                              {header.header}
+                            </TableHeader>
+                          ))}
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {rows.map((row, i) => (
+                          <TableRow
+                            key={row.id}
+                            onClick={() => navigate(row.cells[17].value)}
+                          >
+                            {row.cells.map((cell) => {
+                              return (
+                                <TableCell key={cell.id}>
+                                  {cell.value}
+                                </TableCell>
+                              );
+                            })}
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                )}
+              </DataTable>
+              <PatientChartPagination
+                items={ovcReportData}
+                pageSize={300}
+                pageNumber={pageNumber}
+                onPageNumberChange={handlePageChange}
+                currentPage={page}
+              />
+            </div>
+          )}
           <PatientListDownload
             results={ovcReportData}
             loadAllRecords={setLimit}
             totalRecords={Number(totalRecords)}
             indicatorName={indicatorName}
           />
-        </div>
+        </>
       )}
     </div>
   );
@@ -179,6 +205,10 @@ function OVCPatientList(props) {
 export default OVCPatientList;
 
 const columnsDef: Array<colDef> = [
+  {
+    header: "No",
+    key: "id",
+  },
   {
     header: "Identifiers",
     key: "identifiers",

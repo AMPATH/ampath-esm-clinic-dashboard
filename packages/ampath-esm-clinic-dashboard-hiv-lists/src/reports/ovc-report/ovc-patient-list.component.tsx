@@ -24,6 +24,7 @@ import { useMessageEventHandler } from "../../custom-hooks/useMessageEventHandle
 import { usePaginate } from "../../hooks/use-paginate";
 import PatientChartPagination from "../../ui-components/pagination/pagination.component";
 import { InlineLoading } from "carbon-components-react";
+import { createErrorHandler } from "@openmrs/esm-error-handling";
 
 function OVCPatientList(props) {
   const location = useLocation();
@@ -56,7 +57,7 @@ function OVCPatientList(props) {
           setIsLoading(false);
         },
         (erro) => {
-          console.error(erro);
+          createErrorHandler();
           setIsLoading(false);
         }
       );

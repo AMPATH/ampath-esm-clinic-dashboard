@@ -5,6 +5,7 @@ This is a [lerna](https://lerna.js.org) project containing ampath clinic dashboa
 This package includes the following
 
   - [@ampath/esm-hiv-clinic-dashboard-app](packages/esm-hiv-clinic-dashboard-app)
+  - [@ampath/esm-hiv-summary-app](packages/esm-hiv-summary-app)
 
 ## Repository Development
 

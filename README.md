@@ -1,3 +1,4 @@
+![Node.js CI](https://github.com/ampath/ampath-esm-clinic-dashboard/workflows/Node.js%20CI/badge.svg)
 # Ampath Clinic dashboard
 
 This is a [lerna](https://lerna.js.org) project containing ampath clinic dashboard micro-frontend.

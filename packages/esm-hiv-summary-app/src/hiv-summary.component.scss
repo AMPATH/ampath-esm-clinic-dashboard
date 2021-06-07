@@ -3,7 +3,7 @@
 @import "~carbon-components/src/globals/scss/mixins";
 
 .hivSummaryContainer {
-    height: 25rem;
+    min-height: 25rem;
     background: $ui-02;
 }
 

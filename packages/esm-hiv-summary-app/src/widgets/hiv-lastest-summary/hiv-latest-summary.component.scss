@@ -1,0 +1,29 @@
+@import "~@openmrs/esm-styleguide/src/vars";
+
+.hivLatestSummartWrapper {
+    margin-top: 1rem;
+}
+
+.structuredListCell {
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.structuredListCell svg {
+    margin-right: .5rem;
+}
+
+.textDanger {
+    color: $danger;
+}
+
+.warning {
+    color: $inverse-support-03;
+    fill: $inverse-support-03;
+}
+
+.danger {
+    color: $danger;
+    fill: $danger;
+}

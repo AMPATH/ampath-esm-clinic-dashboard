@@ -1,0 +1,44 @@
+@import "../../root.scss";
+@import "~@openmrs/esm-styleguide/src/vars";
+
+.hivLatestSummaryWrapper{
+    margin: 1rem 0;
+    display: flex;
+    height: 25rem;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.contraceptionContainer {
+    display: flex;
+    align-items: center;
+}
+
+.contraceptionContainer svg {
+    margin-right: .5rem;
+}
+
+.hivLatestSummaryWrapper section {
+    margin-bottom: 1.5rem;
+    height: fit-content;
+}
+
+.hivLatestSummaryWrapper section > p {
+    color: $color-gray-70;
+    padding: .125rem 0;
+    @extend .productiveHeading01;
+}
+
+.textDanger {
+    color: $danger;
+}
+
+.warning {
+    color: $inverse-support-03;
+    fill: $inverse-support-03;
+}
+
+.danger {
+    color: $danger;
+    fill: $danger;
+}

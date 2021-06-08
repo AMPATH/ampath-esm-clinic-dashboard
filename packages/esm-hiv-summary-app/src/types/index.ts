@@ -2,24 +2,24 @@ export interface HIVSummary {
   arv_first_regimen?: string;
   arv_first_regimen_id?: string;
   arv_first_regimen_location_id?: number;
-  arv_first_regimen_start_date?: Date | string | string;
-  arv_first_regimen_start_date_flex?: Date | string | string;
-  arv_start_date?: Date | string | string;
+  arv_first_regimen_start_date?: Date | string;
+  arv_first_regimen_start_date_flex?: Date | string;
+  arv_start_date?: Date | string;
   arv_start_location_id?: number;
   ca_cx_screen?: string;
-  ca_cx_screening_datetime?: string;
+  ca_cx_screening_datetime?: Date | string;
   ca_cx_screening_result?: string;
-  ca_cx_screening_result_datetime?: string;
-  cd4_1?: string;
+  ca_cx_screening_result_datetime?: Date | string;
+  cd4_1?: string | number;
   cd4_1_date?: string;
-  cd4_2?: string;
+  cd4_2?: string | number;
   cd4_2_date?: string;
   cd4_order_date?: string;
-  cd4_percent_1?: string;
+  cd4_percent_1?: number | null;
   cd4_percent_1_date?: string;
-  cd4_percent_2?: string;
+  cd4_percent_2?: string | number;
   cd4_percent_2_date?: string;
-  cd4_resulted?: string;
+  cd4_resulted?: number | null | string;
   cd4_resulted_date?: string;
   condoms_provided_date?: Date | string;
   contraceptive_method?: { concept?: number; name?: string; period?: string };
@@ -62,8 +62,8 @@ export interface HIVSummary {
   ipt_start_date?: Date | string;
   ipt_stop_date?: string;
   is_clinical_encounter?: number;
-  is_cross_border?: string;
-  is_cross_border_country?: string;
+  is_cross_border?: number | null;
+  is_cross_border_country?: string | number;
   is_cross_border_county?: string;
   is_mother_breastfeeding?: string;
   is_pregnant?: string | number;
@@ -111,12 +111,12 @@ export interface HIVSummary {
   prev_rtc_date?: Date | string;
   rtc_date?: string;
   scheduled_visit?: string | number;
-  tb_modality_test?: string;
+  tb_modality_test?: number | number;
   tb_screen?: number;
   tb_screening_datetime?: Date | string;
   tb_screening_result?: number;
   tb_test_date?: string;
-  tb_test_result?: string;
+  tb_test_result?: number | null;
   tb_tx_end_date?: string;
   tb_tx_start_date?: Date | string;
   tb_tx_stop_date?: string;
@@ -136,12 +136,12 @@ export interface HIVSummary {
   visit_id?: string | number;
   visit_num?: number;
   visit_type?: string | number;
-  vl_1?: string;
+  vl_1?: number | null;
   vl_1_date?: string;
-  vl_2?: string;
+  vl_2?: number | null;
   vl_2_date?: string;
   vl_order_date?: Date | string;
-  vl_resulted?: string;
+  vl_resulted?: number | null;
   vl_resulted_date?: string;
   weight?: number;
   encounter_type_name?: string;
@@ -149,7 +149,7 @@ export interface HIVSummary {
   isPendingCD4?: { status: boolean; days: number };
 }
 
-export interface PatientContraceptionEligibilty {
-  ineligibiltyReason: string;
+export interface PatientContraceptionEligibility {
+  ineligibilityReason: string;
   eligiblePatient: boolean;
 }

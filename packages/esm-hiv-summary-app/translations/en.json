@@ -1,3 +1,7 @@
 {
-  "hivSummary": "HIV Summary"
+  "historicalHIVSummary": "Historical HIV Summary",
+  "hivClinicalSummary": "HIV Clinical Summary",
+  "hivSummary": "HIV Summary",
+  "medicationChangeHistory": "Medication Change History",
+  "previousVisitSummary": "Previous Visit Summary"
 }

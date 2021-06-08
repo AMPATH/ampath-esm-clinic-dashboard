@@ -1,0 +1,19 @@
+@import "../../root.scss";
+@import "~@openmrs/esm-styleguide/src/vars";
+
+.wrapper {
+    margin: 0.25rem 0;
+    width: 16rem;
+}
+
+.title {
+    color: $color-gray-70;
+    @extend .label01;
+    padding: .25rem 0;
+}
+
+.label {
+    color: $ui-05;
+    @extend .bodyShort02;
+    padding: .125rem 0;
+}

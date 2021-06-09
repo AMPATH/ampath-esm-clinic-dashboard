@@ -137,7 +137,7 @@ export interface HIVSummary {
   visit_num?: number;
   visit_type?: string | number;
   vl_1?: number | null;
-  vl_1_date?: string;
+  vl_1_date?: Date | string;
   vl_2?: number | null;
   vl_2_date?: string;
   vl_order_date?: Date | string;

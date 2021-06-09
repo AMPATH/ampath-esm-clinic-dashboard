@@ -44,7 +44,7 @@ const HivLatestSummary: React.FC<HivLatestSummaryProps> = ({ patient, patientUui
         });
         setHivSummary(loadHivSummary(summaries));
         setPatientContraception(determineEligibilityForContraception(hivSummary, patient));
-        setStatus(StateTypes.PENDING);
+        setStatus(StateTypes.RESOLVED);
       },
       (error) => {
         createErrorHandler();

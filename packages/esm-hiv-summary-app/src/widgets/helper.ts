@@ -104,7 +104,7 @@ const getLatestVlDate = (summary: Array<HIVSummary>) =>
     ),
   );
 
-const endDateIsBeforeStartDate = (startDate: any, endDate: any) => {
+const endDateIsBeforeStartDate = (startDate: Date | string, endDate: Date) => {
   return dayjs(startDate).isBefore(endDate, 'date');
 };
 

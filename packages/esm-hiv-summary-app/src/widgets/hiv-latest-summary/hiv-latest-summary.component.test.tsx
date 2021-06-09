@@ -10,6 +10,7 @@ describe('<HivLatestSummary/>', () => {
 
   it('should render hiv-summary without dying', () => {
     renderHIVSummary();
+    // To Do
     pending();
   });
 });

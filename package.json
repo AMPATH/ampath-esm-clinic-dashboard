@@ -15,7 +15,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "pretty-quick --staged && lerna run lint && lerna run test && lerna run typescript && yarn run extract-translations"
+            "pre-commit": "pretty-quick --staged && lerna run lint && yarn test && lerna run typescript && yarn run extract-translations"
         }
     },
     "devDependencies": {

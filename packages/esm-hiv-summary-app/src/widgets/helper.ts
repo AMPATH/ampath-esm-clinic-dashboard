@@ -9,12 +9,11 @@ export const formatDate = (date: string | Date) => {
 };
 
 export const zeroVl = (vl: number | string) => {
-  if (vl === 0 || vl === '0') return 'LDL';
-  if (vl === null || vl === undefined) return '';
-  return vl;
+  if (!vl) return '';
+  return vl === 0 || vl === '0' ? 'LDL' : vl;
 };
 
-export function determineIfVlIsPending(hivSummary: any) {
+export function determineIfVlIsPending(hivSummary: HIVSummary) {
   const overDueDays = isNil(hivSummary?.vl_order_date)
     ? dayjs(new Date(hivSummary?.cd4_order_date)).diff(new Date(), 'days')
     : 0;
@@ -22,6 +21,7 @@ export function determineIfVlIsPending(hivSummary: any) {
     if (isNil(hivSummary?.vl_1_date)) {
       if (isNil(hivSummary?.vl_order_date)) {
         return {
+          // @ts-ignore: Object is possibly 'null'.
           status: hivSummary?.vl_order_date > hivSummary?.vl_1_date,
           days: overDueDays,
         };
@@ -40,7 +40,7 @@ export function determineIfVlIsPending(hivSummary: any) {
   }
 }
 
-export function determineIfCD4IsPending(hivSummary: any) {
+export function determineIfCD4IsPending(hivSummary: HIVSummary) {
   const overDueDays = isNil(hivSummary?.cd4_order_date)
     ? dayjs(new Date(hivSummary?.cd4_order_date)).diff(new Date(), 'days')
     : 0;
@@ -48,7 +48,8 @@ export function determineIfCD4IsPending(hivSummary: any) {
     if (isNil(hivSummary?.cd4_1_date)) {
       if (isNil(hivSummary?.cd4_order_date)) {
         return {
-          status: hivSummary.cd4_order_date > hivSummary.cd4_1_date,
+          // @ts-ignore: Object is possibly 'null'.
+          status: hivSummary.cd4_order_date > hivSummary?.cd4_1_date,
           days: overDueDays,
         };
       }
@@ -107,19 +108,19 @@ const endDateIsBeforeStartDate = (startDate: any, endDate: any) => {
   return dayjs(startDate).isBefore(endDate, 'date');
 };
 
-export const getPatientEligibilityForContraception = (
+export const determineEligibilityForContraception = (
   hivSummary: HIVSummary,
   patient: fhir.Patient,
 ): PatientContraceptionEligibility => {
-  const patientAge: number = Number.parseInt(age(patient.birthDate));
-  if (patient.gender.toUpperCase() === 'MALE')
+  const patientAge = Number.parseInt(age(patient.birthDate));
+  if (patient.gender?.toUpperCase() === 'MALE')
     return { ineligibilityReason: '(Not eligible) Male Patient', eligiblePatient: false };
   if (patientAge < 14 || patientAge > 49)
     return { ineligibilityReason: '(Not eligible) Not in reproductive age', eligiblePatient: false };
   if (
     patientAge >= 14 &&
     patientAge <= 49 &&
-    patient.gender.toUpperCase() === 'FEMALE' &&
+    patient.gender?.toUpperCase() === 'FEMALE' &&
     isPostmenopausal(hivSummary?.menstruation_status)
   )
     return { ineligibilityReason: '(Not eligible) POSTMENOPAUSAL', eligiblePatient: false };
@@ -128,6 +129,5 @@ export const getPatientEligibilityForContraception = (
 
 const isPostmenopausal = (menstruationStatus: number) => {
   //concept 6496 == post-menopausal
-  if (menstruationStatus === 6496) return true;
-  return false;
+  return menstruationStatus === 6496 ? true : false;
 };

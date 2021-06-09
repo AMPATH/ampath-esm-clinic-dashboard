@@ -3,18 +3,18 @@ import styles from './hiv-summary-label.component.scss';
 
 interface HivSummaryLabelProps {
   title: string;
-  label: React.ReactNode;
+  value: React.ReactNode;
   titleStyles?: React.CSSProperties;
-  labelStyles?: React.CSSProperties;
+  valueStyles?: React.CSSProperties;
 }
 
-const HivSummaryLabel: React.FC<HivSummaryLabelProps> = ({ title, label, titleStyles, labelStyles }) => {
+const HivSummaryLabel: React.FC<HivSummaryLabelProps> = ({ title, value: label, titleStyles, valueStyles }) => {
   return (
     <div className={styles.wrapper}>
       <p style={{ ...titleStyles }} className={styles.title}>
         {title}
       </p>
-      <div style={{ ...labelStyles }} className={styles.label}>
+      <div style={{ ...valueStyles }} className={styles.label}>
         {label}
       </div>
     </div>

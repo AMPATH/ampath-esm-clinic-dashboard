@@ -2,7 +2,7 @@ import { openmrsObservableFetch } from '@openmrs/esm-framework';
 import { map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { HIVSummary } from './types';
-import { mockDataHIVData } from '../../../__mocks__/mock-data';
+import { mockHivSummaryData } from '../../../__mocks__/mock-data';
 
 interface HivSummaryFetchResponse {
   result: Array<HIVSummary>;
@@ -23,5 +23,5 @@ export function fetchHivSummary(
   // return openmrsObservableFetch<HivSummaryFetchResponse>(url).pipe(
   //   map(({ data }) => data.result),
   // );
-  return of(mockDataHIVData);
+  return of(mockHivSummaryData);
 }

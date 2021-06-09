@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 describe('<HivSummaryLabel/>', () => {
   const renderHivSummaryLabel = () => {
-    render(<HivLabel title="ARV Start Date" label="02 - May - 2021" />);
+    render(<HivLabel title="ARV Start Date" value="02 - May - 2021" />);
   };
 
   it('should display title and label', () => {

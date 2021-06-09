@@ -11,10 +11,10 @@ export interface HIVSummary {
   ca_cx_screening_result?: string;
   ca_cx_screening_result_datetime?: Date | string;
   cd4_1?: string | number;
-  cd4_1_date?: string;
+  cd4_1_date?: Date | string;
   cd4_2?: string | number;
   cd4_2_date?: string;
-  cd4_order_date?: string;
+  cd4_order_date?: Date | string;
   cd4_percent_1?: number | null;
   cd4_percent_1_date?: string;
   cd4_percent_2?: string | number;

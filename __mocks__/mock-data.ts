@@ -1,7 +1,7 @@
 import { of } from 'rxjs';
 import { HIVSummary } from '../packages/esm-hiv-summary-app/src/types';
 
-export const mockDataHIVData: Array<HIVSummary> = [
+export const mockHivSummaryData: Array<HIVSummary> = [
   {
     date_created: '2020-08-24T13:27:36.000Z',
     person_id: 904993,

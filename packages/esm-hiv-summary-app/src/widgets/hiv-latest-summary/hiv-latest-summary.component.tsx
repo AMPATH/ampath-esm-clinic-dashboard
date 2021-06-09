@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './hiv-latest-summary.component.scss';
-import {
-  determineIfCD4IsPending,
-  determineIfVlIsPending,
-  formatDate,
-  determineEligibilityForContraception,
-  loadHivSummary,
-  zeroVl,
-} from '../helper';
-import { isEmpty } from 'lodash';
+import { formatDate, determineEligibilityForContraception, zeroVl } from '../helper';
+import isEmpty from 'lodash-es/isEmpty';
 import { HIVSummary, PatientContraceptionEligibility } from '../../types';
 import { fetchHivSummary } from '../../hiv-summary.resource';
 import StructuredListSkeleton from 'carbon-components-react/lib/components/StructuredList/StructuredList.Skeleton';
@@ -37,13 +30,8 @@ const HivLatestSummary: React.FC<HivLatestSummaryProps> = ({ patient, patientUui
   useEffect(() => {
     const sub = fetchHivSummary(patientUuid).subscribe(
       (data) => {
-        const summaries = data.map((hivsummary) => {
-          hivsummary.isPendingCD4 = determineIfCD4IsPending(hivsummary);
-          hivsummary.isPendingViralLoad = determineIfVlIsPending(hivsummary);
-          return hivsummary;
-        });
-        setHivSummary(loadHivSummary(summaries));
-        setPatientContraception(determineEligibilityForContraception(hivSummary, patient));
+        setHivSummary(data);
+        setPatientContraception(determineEligibilityForContraception(data, patient));
         setStatus(StateTypes.RESOLVED);
       },
       (error) => {
@@ -52,7 +40,7 @@ const HivLatestSummary: React.FC<HivLatestSummaryProps> = ({ patient, patientUui
       },
     );
     return () => sub.unsubscribe();
-  }, [hivSummary, patient, patientUuid]);
+  }, [patient, patientUuid]);
 
   return (
     <>

@@ -7,7 +7,7 @@ function setupOpenMRS() {
   const moduleName = '@ampath/esm-hiv-clinic-dashboard-app';
 
   const options = {
-    featureName: 'esm-hiv-clinic-dashboard-a]',
+    featureName: 'esm-hiv-clinic-dashboard-app',
     moduleName,
   };
 

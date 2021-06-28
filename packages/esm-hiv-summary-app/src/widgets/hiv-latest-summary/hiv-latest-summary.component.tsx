@@ -24,14 +24,14 @@ type ViewState = StateTypes.PENDING | StateTypes.RESOLVED | StateTypes.ERROR;
 
 const HivLatestSummary: React.FC<HivLatestSummaryProps> = ({ patient, patientUuid }) => {
   const [status, setStatus] = useState<ViewState>(StateTypes.PENDING);
-  const [patientContraception, setPatientContraception] = useState<PatientContraceptionEligibility>(null);
+  const [patientContraception, setContraceptionEligibilityStatus] = useState<PatientContraceptionEligibility>(null);
   const [hivSummary, setHivSummary] = useState<HIVSummary>(null);
 
   useEffect(() => {
     const sub = fetchHivSummary(patientUuid).subscribe(
       (data) => {
         setHivSummary(data);
-        setPatientContraception(determineEligibilityForContraception(data, patient));
+        setContraceptionEligibilityStatus(determineEligibilityForContraception(data, patient));
         setStatus(StateTypes.RESOLVED);
       },
       (error) => {

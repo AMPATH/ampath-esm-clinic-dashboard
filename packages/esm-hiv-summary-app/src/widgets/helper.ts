@@ -5,11 +5,11 @@ import isNil from 'lodash-es/isNil';
 import { HIVSummary, PatientContraceptionEligibility } from '../types';
 
 export const formatDate = (date: string | Date) => {
-  return date === null ? '' : dayjs(date).format('DD - MMM - YYYY');
+  return date === null ? '' : dayjs(date).format('DD-MMM-YYYY');
 };
 
 export const zeroVl = (vl: number | string) => {
-  if (!vl) return '';
+  if (vl === undefined || vl === null) return '';
   return vl === 0 || vl === '0' ? 'LDL' : vl;
 };
 

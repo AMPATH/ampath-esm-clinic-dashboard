@@ -1,7 +1,18 @@
 {
+  "arvMeds": "ARV Meds",
+  "cd4Count": "CD4 Count",
+  "encounterDate": "Encounter Date",
+  "encounterType": "Encounter Type",
   "historicalHIVSummary": "Historical HIV Summary",
   "hivClinicalSummary": "HIV Clinical Summary",
   "hivSummary": "HIV Summary",
+  "mdtSessionNumber": "EAC",
+  "medicatePickUpDate": "Med Pick up Date",
   "medicationChangeHistory": "Medication Change History",
-  "previousVisitSummary": "Previous Visit Summary"
+  "previousVisitSummary": "Previous Visit Summary",
+  "rtcDate": "RTC Date",
+  "tbTreatmentEndDate": "TB Treat End Date",
+  "tbTreatmentStartDate": "TB Treat Start Date",
+  "vitalLoad": "Viral Load",
+  "whoStage": "WHO Stage"
 }

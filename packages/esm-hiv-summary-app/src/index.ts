@@ -25,6 +25,16 @@ function setupOpenMRS() {
         },
       },
     ],
+
+    // To be removed, used this for development purposes
+    pages: [
+      {
+        route: /^patient\/.+\/hiv-summary/,
+        load: getAsyncLifecycle(() => import('./hiv-summary.component'), options),
+        online: true,
+        offline: true,
+      },
+    ],
   };
 }
 

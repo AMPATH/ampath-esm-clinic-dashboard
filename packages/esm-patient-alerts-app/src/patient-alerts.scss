@@ -1,0 +1,13 @@
+@import "~carbon-components/src/globals/scss/vars";
+
+.emptyState {
+  margin: 2rem 1rem;
+  color: $ui-background;
+}
+
+.loading {
+  margin: 1rem;
+  :global(.bx--inline-loading__text) {
+    color: white;
+  }
+}

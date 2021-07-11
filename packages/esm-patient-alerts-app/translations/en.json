@@ -1,0 +1,5 @@
+{
+  "loading": "Loading",
+  "noNotifications": "You currently have no notifications",
+  "patientReminderError": "Error fetching reminders"
+}

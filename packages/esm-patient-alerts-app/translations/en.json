@@ -1,5 +1,6 @@
 {
-  "loading": "Loading",
-  "noNotifications": "You currently have no notifications",
-  "patientReminderError": "Error fetching reminders"
+  "alertsErrorCopy": "Sorry, there was a problem loading alerts",
+  "errorCopy": "Sorry, there was a problem loading alerts.",
+  "fetchingAlerts": "Fetching alerts",
+  "noNotifications": "You currently have no notifications"
 }

@@ -17,7 +17,7 @@ const NotificationsMenuButton: React.FC<NotificationsMenuButtonProps> = ({ isAct
 
   return (
     <>
-      {alerts ? (
+      {alerts?.length && (
         <HeaderGlobalAction
           aria-label="Notifications"
           aria-labelledby="Notifications Icon"
@@ -32,7 +32,7 @@ const NotificationsMenuButton: React.FC<NotificationsMenuButtonProps> = ({ isAct
             <Notification20 />
           )}
         </HeaderGlobalAction>
-      ) : null}
+      )}
     </>
   );
 };

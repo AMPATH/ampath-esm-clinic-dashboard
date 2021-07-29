@@ -4,7 +4,7 @@ import { NotificationKind } from 'carbon-components-react';
 import { openmrsObservableFetch } from '@openmrs/esm-framework';
 
 export interface Reminder {
-  action: true;
+  action: boolean;
   display: {
     toast: boolean;
     banner: string;

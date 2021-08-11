@@ -42,7 +42,7 @@ const HivSummaryHistorical: React.FC = () => {
     () =>
       hivSummary?.map((hivSum, index) => {
         return {
-          id: index,
+          id: `${index}`,
           encounterDate: formatDate(hivSum.encounter_datetime),
           encounterType: hivSum.encounter_type_name,
           rtcDate: formatDate(hivSum.rtc_date),
@@ -62,7 +62,7 @@ const HivSummaryHistorical: React.FC = () => {
 
   return (
     <TableContainer className={styles.tableContainer}>
-      <DataTable rows={tableRows} headers={tableHeaders} isSortable={true} size="short">
+      <DataTable rows={tableRows} headers={tableHeaders} isSortable={true}>
         {({ rows, headers, getHeaderProps, getTableProps }) => (
           <Table {...getTableProps()}>
             <TableHead>

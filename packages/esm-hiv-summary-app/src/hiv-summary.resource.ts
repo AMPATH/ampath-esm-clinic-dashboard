@@ -10,14 +10,12 @@ interface HivSummaryFetchResponse {
   startIndex: number;
   sqlParams: Array<any>;
 }
-
 export function fetchHivSummary(
   patientUuid: string,
   startIndex = 0,
   limit: number = 20,
   includeNonClinicalEncounter: boolean = false,
 ) {
-  // TO DO : Hit the actual etl rest server
   const url = `/etl-latest/etl/patient/${patientUuid}/hiv-summary?startIndex=${startIndex}&limit=${limit}&includeNonClinicalEncounter=${includeNonClinicalEncounter}`;
   return openmrsObservableFetch<HivSummaryFetchResponse>(url).pipe(
     map(({ data }) => data.result),
@@ -28,6 +26,5 @@ export function fetchHivSummary(
         return hivsummary;
       }),
     ),
-    map((summaries) => loadHivSummary(summaries)),
   );
 }

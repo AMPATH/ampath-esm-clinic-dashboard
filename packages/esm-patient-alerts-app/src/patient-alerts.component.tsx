@@ -120,7 +120,7 @@ export default function PatientAlertsComponent({ expanded }: PatientAlertsCompon
 
   return (
     <>
-      {expanded && (
+      {expanded ? (
         <div className={styles.notificationsPanel}>
           {viewState.status === 'loading' ? (
             <InlineLoading
@@ -155,7 +155,7 @@ export default function PatientAlertsComponent({ expanded }: PatientAlertsCompon
             </p>
           ) : null}
         </div>
-      )}
+      ) : null}
     </>
   );
 }

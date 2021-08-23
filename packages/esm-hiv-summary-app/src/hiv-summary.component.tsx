@@ -6,6 +6,7 @@ import Switch from 'carbon-components-react/es/components/Switch';
 import HivLatestSummary from './widgets/hiv-latest-summary/hiv-latest-summary.component';
 import HivSummaryHistorical from './widgets/hiv-summary-historical/hiv-summary-historical.component';
 import { HivSummaryProvider } from './hooks/useHivSummary';
+import HIVMedicationChangeHistory from './widgets/hiv-medication-change-history/hiv-medication-change-history.component';
 
 interface HivSummaryProps {
   patientUuid: string;
@@ -43,6 +44,7 @@ const HivSummary: React.FC<HivSummaryProps> = ({ patient, patientUuid }) => {
           </ContentSwitcher>
           <div>{selectedSwitchIndex === 0 && <HivLatestSummary patient={patient} />}</div>
           <div>{selectedSwitchIndex === 1 && <HivSummaryHistorical />}</div>
+          <div>{selectedSwitchIndex === 2 && <HIVMedicationChangeHistory patientUuid={patientUuid} />}</div>
         </div>
       </div>
     </HivSummaryProvider>

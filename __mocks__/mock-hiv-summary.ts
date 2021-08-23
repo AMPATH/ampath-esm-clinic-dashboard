@@ -153,3 +153,48 @@ export const mockHIVSummary = [
     prev_encounter_type_name: 'ADULTRETURN',
   },
 ];
+
+export const mockMedicationChangeHistory = [
+  {
+    encounter_datetime: '05-05-2021',
+    previous_vl_date: '21-01-2021',
+    current_regimen: 'LAMIVUDINE, TENOFOVIR, DOLUTEGRAVIR',
+    previous_regimen: 'ATAZANAVIR, LAMIVUDINE, RITONAVIR, TENOFOVIR',
+    previous_vl: 40,
+  },
+  {
+    encounter_datetime: '15-06-2020',
+    previous_vl_date: '15-06-2020',
+    current_regimen: 'ATAZANAVIR, LAMIVUDINE, RITONAVIR, TENOFOVIR',
+    previous_regimen: 'LAMIVUDINE AND TENOFOVIR',
+    previous_vl: 0,
+  },
+  {
+    encounter_datetime: '12-03-2020',
+    previous_vl_date: '26-06-2019',
+    current_regimen: 'LAMIVUDINE AND TENOFOVIR',
+    previous_regimen: 'ATAZANAVIR, LAMIVUDINE, RITONAVIR, TENOFOVIR',
+    previous_vl: 0,
+  },
+  {
+    encounter_datetime: '26-03-2019',
+    previous_vl_date: '26-02-2019',
+    current_regimen: 'ATAZANAVIR, LAMIVUDINE, RITONAVIR, TENOFOVIR',
+    previous_regimen: 'LAMIVUDINE, RITONAVIR, ZIDOVUDINE, LOPINAVIR',
+    previous_vl: 0,
+  },
+  {
+    encounter_datetime: '27-10-2010',
+    previous_vl_date: null,
+    current_regimen: '',
+    previous_regimen: 'LAMIVUDINE, RITONAVIR, ZIDOVUDINE, LOPINAVIR',
+    previous_vl: null,
+  },
+  {
+    encounter_datetime: '03-11-2009',
+    previous_vl_date: null,
+    current_regimen: 'LAMIVUDINE, RITONAVIR, ZIDOVUDINE, LOPINAVIR',
+    previous_regimen: '',
+    previous_vl: null,
+  },
+];

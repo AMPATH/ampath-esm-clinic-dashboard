@@ -153,3 +153,11 @@ export interface PatientContraceptionEligibility {
   ineligibilityReason: string;
   eligiblePatient: boolean;
 }
+
+export interface MedicationChangeHistory {
+  current_regimen: string;
+  encounter_datetime: Date;
+  previous_regimen: string;
+  previous_vl: string | number;
+  previous_vl_date: Date;
+}

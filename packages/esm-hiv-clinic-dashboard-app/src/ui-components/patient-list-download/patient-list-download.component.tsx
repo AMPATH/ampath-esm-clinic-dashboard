@@ -59,9 +59,9 @@ const PatientListDownload: React.FC<PatientListDownloadProps> = ({
       </div>
       <div>
         <CsvDownloader
-          datas={results}
           columns={columnDefs}
-          separator=";"
+          datas={results}
+          separator=","
           filename={`Patient List ${indicatorName} ${new Date().toDateString()}`}>
           <Button kind="primary" renderIcon={Download32}>
             Download

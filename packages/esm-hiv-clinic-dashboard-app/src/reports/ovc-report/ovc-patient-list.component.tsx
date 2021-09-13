@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { fetchOVCPatientList } from './ovc-report.resource';
 import { colDef } from '../../types';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -12,14 +12,11 @@ import DataTable, {
   TableHeader,
   TableRow,
   TableToolbar,
-  TableToolbarAction,
   TableToolbarContent,
-  TableToolbarMenu,
   TableToolbarSearch,
 } from 'carbon-components-react/es/components/DataTable';
 import Button from 'carbon-components-react/es/components/Button';
 import styles from './ovc-report.component.css';
-import dayjs from 'dayjs';
 import { useMessageEventHandler } from '../../custom-hooks/useMessageEventHandler';
 import { usePaginate } from '../../hooks/use-paginate';
 import PatientChartPagination from '../../ui-components/pagination/pagination.component';
@@ -56,12 +53,21 @@ function OVCPatientList(props) {
       return () => ac.abort();
     }
   }, [indicators, endDate, indicatorName, locationUuids]);
+
+  const csvData = ovcReportData.map((result) => {
+    return {
+      ...result,
+      identifiers: result.identifiers.split(',').join(''),
+      cur_arv_meds: result.cur_arv_meds.split(',').join(''),
+    };
+  });
+
   const tableRows = page?.map((report, index) => {
     return {
       id: `${index + 1}`,
       identifiers: report.identifiers,
       person_name: report.person_name,
-      enrollment_date: report.enrollment_date ? dayjs(new Date(report.enrollment_date)).format(`DD - MMM - YYYY`) : '',
+      enrollment_date: report.enrollment_date,
       age: report.age,
       ovc_identifier: report.ovc_identifier,
       vl_1_date: report.vl_1_date,
@@ -155,7 +161,7 @@ function OVCPatientList(props) {
             </div>
           )}
           <PatientListDownload
-            results={ovcReportData}
+            results={csvData}
             loadAllRecords={setLimit}
             totalRecords={Number(totalRecords)}
             indicatorName={indicatorName}

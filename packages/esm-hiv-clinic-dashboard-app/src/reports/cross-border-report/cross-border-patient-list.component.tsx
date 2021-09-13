@@ -4,7 +4,6 @@ import PatientList from '../../patient-list/patient-list.component';
 import { colDef } from '../../types';
 import { fetchCrossBorderPatientList } from './cross-border.resource';
 import dayjs from 'dayjs';
-import styles from './cross-border-patient-list.component.css';
 import PatientListDownload from '../../ui-components/patient-list-download/patient-list-download.component';
 
 interface CrossBorderPatientListProps {
@@ -38,6 +37,13 @@ function CrossBorderPatientList(props: { match: match<CrossBorderPatientListProp
     window.frames.parent.scrollTo(0, 0);
   }, []);
 
+  const csvData = crossBorderPatientList?.map((result) => {
+    return {
+      ...result,
+      identifiers: result.identifiers.split(',').join(''),
+      cur_arv_meds: result.cur_arv_meds.split(',').join(''),
+    };
+  });
   return (
     <div>
       <div>
@@ -63,7 +69,7 @@ function CrossBorderPatientList(props: { match: match<CrossBorderPatientListProp
             indicatorName={indicatorName}
           />
           <PatientListDownload
-            results={crossBorderPatientList}
+            results={csvData}
             loadAllRecords={setLimit}
             totalRecords={Number(totalRecords)}
             indicatorName={indicatorName}

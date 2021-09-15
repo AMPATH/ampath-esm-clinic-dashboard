@@ -2,28 +2,18 @@ import React from 'react';
 import ReportTitle from '../../ui-components/header-ui/report-title.component';
 import ReportFilter from '../../ui-components/report-filter.component';
 import ReportView from '../../ui-components/report-view.component';
-import { EtlReportData } from '../../types/types';
 import styles from './cross-border-report.component.css';
-import { fetchCrossBorderReportData } from './cross-border.resource';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useCurrentLocation } from '../../custom-hooks/useCurrentLocation';
 import dayjs from 'dayjs';
+import useCrossBoarder from './useCrossBorder';
 
 const CrossBorderReport: React.FC = () => {
   const currentLocation = useCurrentLocation();
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [month, setMonth] = React.useState<Date>();
-  const [loadReport, setLoadReport] = React.useState<boolean>(false);
-  const [crossBorderReportData, setCrossBorderReportData] = React.useState<EtlReportData>();
-  const [showError, setShowError] = React.useState<boolean>(false);
-  const [locationUuid, setLocationUuid] = React.useState(currentLocation);
-
   const history = useHistory();
-  const location =
-    useLocation<{
-      month: Date;
-      locationUuid: string;
-    }>();
+  const [month, setMonth] = React.useState<Date>();
+  const [locationUuid, setLocationUuid] = React.useState(currentLocation);
+  const { loading, crossBoarderReportData, error } = useCrossBoarder(month, locationUuid);
 
   const handleLocationChange = (event: MessageEvent) => {
     event.data?.location_uuid && setLocationUuid(event.data.location_uuid);
@@ -34,40 +24,8 @@ const CrossBorderReport: React.FC = () => {
     return () => window.removeEventListener('message', handleLocationChange);
   }, []);
 
-  React.useEffect(() => {
-    if (month) {
-      setLoading(true);
-      const ac = new AbortController();
-      const startDate = dayjs(month).startOf('month').format('YYYY-MM-DD');
-      const endDate = dayjs(month).endOf('month').format('YYYY-MM-DD');
-      fetchCrossBorderReportData(ac, locationUuid, endDate, startDate).then(
-        ({ data }) => {
-          setCrossBorderReportData(data);
-          setLoading(false);
-        },
-        (error) => {
-          setShowError(true);
-          setLoading(false);
-        },
-      );
-      return () => ac.abort();
-    }
-  }, [loadReport, locationUuid, month]);
-
-  React.useEffect(() => {
-    if (location?.state) {
-      let { month, locationUuid } = location.state;
-      if (month && locationUuid) {
-        setCrossBorderReportData(null);
-        setMonth(month);
-        setLoadReport(!loadReport);
-      }
-    }
-  }, []);
-
   const generateReport = (): void => {
     month ?? setMonth(new Date());
-    setLoadReport(!loadReport);
     storeInURL();
   };
 
@@ -87,7 +45,7 @@ const CrossBorderReport: React.FC = () => {
     <>
       {!loading ? (
         <div>
-          {showError && (
+          {error && (
             <div className={styles.error}>
               <div>
                 <svg className="omrs-icon" fill="var(--omrs-color-danger)">
@@ -95,11 +53,7 @@ const CrossBorderReport: React.FC = () => {
                 </svg>
                 <h3>An error occurred while loading the report</h3>
               </div>
-              <svg
-                className="omrs-icon"
-                fill="var(--omrs-color-danger)"
-                onClick={() => setShowError(false)}
-                data-testid="close">
+              <svg className="omrs-icon" fill="var(--omrs-color-danger)" onClick={() => {}} data-testid="close">
                 <use xlinkHref="#omrs-icon-close"></use>
               </svg>
             </div>
@@ -124,12 +78,12 @@ const CrossBorderReport: React.FC = () => {
               Generate Report
             </button>
           </div>
-          {crossBorderReportData && (
+          {crossBoarderReportData && (
             <ReportView
-              indicatorDefinitions={crossBorderReportData.indicatorDefinitions}
-              sectionDefinitions={crossBorderReportData.sectionDefinitions}
-              result={crossBorderReportData.result}
-              queriesAndSchemas={crossBorderReportData.queriesAndSchemas}
+              indicatorDefinitions={crossBoarderReportData.indicatorDefinitions}
+              sectionDefinitions={crossBoarderReportData.sectionDefinitions}
+              result={crossBoarderReportData.result}
+              queriesAndSchemas={crossBoarderReportData.queriesAndSchemas}
               params={{
                 patientListUrl: `/hiv-clinic-dashboard/cross-border-patient-list/${locationUuid}/${
                   month ?? new Date()

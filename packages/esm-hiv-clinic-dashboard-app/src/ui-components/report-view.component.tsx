@@ -5,13 +5,8 @@ import { useHistory } from 'react-router-dom';
 import { useColumns } from './useColumns';
 
 const ReportView: React.FC<EtlReportData> = ({ result, sectionDefinitions, params }) => {
-  const [columnDefs, setColumnDefs] = React.useState<Array<any>>();
-  let history = useHistory();
-  const columns = useColumns(sectionDefinitions, result);
-
-  React.useEffect(() => {
-    setColumnDefs(columns);
-  }, [columns]);
+  const history = useHistory();
+  const columnDefs = useColumns(sectionDefinitions, result);
 
   const navigateToPatientList = (indicators) => {
     const { patientListUrl } = params;

@@ -1,42 +1,20 @@
 import React from 'react';
 import ReportFilter from '../../ui-components/report-filter.component';
 import ReportView from '../../ui-components/report-view.component';
-import { EtlReportData } from '../../types/types';
 import ReportTitle from '../../ui-components/header-ui/report-title.component';
-import { fetchOVCReport } from './ovc-report.resource';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useCurrentLocation } from '../../custom-hooks/useCurrentLocation';
 import styles from './ovc-report.component.css';
 import dayjs from 'dayjs';
+import useOVCData from './useOVCData';
 
 const OVCReport: React.FC = () => {
   const currentLocation = useCurrentLocation();
-  const [ovcReportData, setOvcReportData] = React.useState<EtlReportData>();
   const [endDate, setEndDate] = React.useState<Date>();
-  const [loadReport, setLoadReport] = React.useState(false);
-  const [loading, setLoading] = React.useState<boolean>(false);
   const history = useHistory();
   const location = useLocation<{ endDate: Date; locationUuid: string }>();
-  const [showError, setShowError] = React.useState<boolean>();
   const [locationUuid, setLocationUuid] = React.useState(currentLocation);
-
-  React.useEffect(() => {
-    const ac = new AbortController();
-    if (endDate) {
-      setLoading(true);
-      setOvcReportData(null);
-      fetchOVCReport(ac, locationUuid, endDate).then(
-        ({ data }) => {
-          setOvcReportData(data);
-          setLoading(false);
-        },
-        (error) => {
-          setLoading(false);
-          setShowError(true);
-        },
-      );
-    }
-  }, [endDate, loadReport, locationUuid]);
+  const { loading, error, ovcReportData } = useOVCData(endDate, locationUuid);
 
   React.useEffect(() => {
     if (location?.state) {
@@ -44,10 +22,9 @@ const OVCReport: React.FC = () => {
       if (endDate && locationUuid) {
         setEndDate(dayjs(endDate).endOf('month').toDate());
         setLocationUuid(locationUuid);
-        setLoadReport(!loadReport);
       }
     }
-  }, [loadReport, location.state]);
+  }, [location.state]);
 
   const locationChangeHandler = (event: MessageEvent) => {
     event.data?.location_uuid && setLocationUuid(event.data.location_uuid);
@@ -71,7 +48,6 @@ const OVCReport: React.FC = () => {
   };
 
   const generateReport = () => {
-    setLoadReport(!loadReport);
     storeInURL();
     endDate ?? setEndDate(dayjs(new Date()).endOf('month').toDate());
   };
@@ -80,7 +56,7 @@ const OVCReport: React.FC = () => {
     <>
       {!loading ? (
         <div>
-          {showError && (
+          {error && (
             <div className={styles.error}>
               <div>
                 <svg className="omrs-icon" fill="var(--omrs-color-danger)">
@@ -88,7 +64,7 @@ const OVCReport: React.FC = () => {
                 </svg>
                 <h3>An error occurred while loading the report</h3>
               </div>
-              <svg className="omrs-icon" fill="var(--omrs-color-danger)" onClick={() => setShowError(false)}>
+              <svg className="omrs-icon" fill="var(--omrs-color-danger)">
                 <use xlinkHref="#omrs-icon-close"></use>
               </svg>
             </div>

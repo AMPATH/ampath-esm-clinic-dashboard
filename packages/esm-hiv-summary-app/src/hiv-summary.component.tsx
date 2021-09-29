@@ -7,6 +7,7 @@ import HivLatestSummary from './widgets/hiv-latest-summary/hiv-latest-summary.co
 import HivSummaryHistorical from './widgets/hiv-summary-historical/hiv-summary-historical.component';
 import { HivSummaryProvider } from './hooks/useHivSummary';
 import HIVMedicationChangeHistory from './widgets/hiv-medication-change-history/hiv-medication-change-history.component';
+import HIVClinicalSummary from './widgets/hiv-clinical-summary/hiv-clinical-summary.component';
 
 interface HivSummaryProps {
   patientUuid: string;
@@ -45,6 +46,7 @@ const HivSummary: React.FC<HivSummaryProps> = ({ patient, patientUuid }) => {
           <div>{selectedSwitchIndex === 0 && <HivLatestSummary patient={patient} />}</div>
           <div>{selectedSwitchIndex === 1 && <HivSummaryHistorical />}</div>
           <div>{selectedSwitchIndex === 2 && <HIVMedicationChangeHistory patientUuid={patientUuid} />}</div>
+          <div>{selectedSwitchIndex === 3 && <HIVClinicalSummary patientUuid={patientUuid} />}</div>
         </div>
       </div>
     </HivSummaryProvider>

@@ -1,4 +1,6 @@
-import { defineConfigSchema, getAsyncLifecycle } from '@openmrs/esm-framework';
+import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle } from '@openmrs/esm-framework';
+import { dashboardMeta } from './dashboard.meta';
+import { createDashboardLink } from './widgets/createDashboardLink';
 
 const backendDependencies = { 'webservices.rest': '^2.2.0' };
 
@@ -24,6 +26,24 @@ function setupOpenMRS() {
         meta: {
           columnSpan: 4,
         },
+      },
+      {
+        id: 'hiv-summary-overview-widget',
+        slot: dashboardMeta.slot,
+        order: 0,
+        load: getAsyncLifecycle(() => import('./widgets/hiv-summary-overview/hiv-summary-overview.component'), options),
+        meta: {
+          columnSpan: 4,
+        },
+      },
+      {
+        id: 'hiv-summary-nav-link',
+        slot: 'patient-chart-dashboard-slot',
+        order: 1,
+        load: getSyncLifecycle(createDashboardLink(dashboardMeta), options),
+        meta: dashboardMeta,
+        online: true,
+        offline: true,
       },
     ],
   };

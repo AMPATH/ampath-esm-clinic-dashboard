@@ -15,6 +15,7 @@ type ViewState = StateTypes.PENDING | StateTypes.RESOLVED | StateTypes.ERROR;
 
 interface HIVSummaryContextShape {
   hivSummary: Array<HIVSummary>;
+  error?: Error;
 }
 
 interface HivSummaryProviderProps {
@@ -22,11 +23,11 @@ interface HivSummaryProviderProps {
   patientUuid: string;
 }
 
-const HivSummaryContext = React.createContext<HIVSummaryContextShape>({ hivSummary: [] });
+const HivSummaryContext = React.createContext<HIVSummaryContextShape>({ hivSummary: [], error: null });
 
 export function useHivSummaryContext() {
   const value = React.useContext(HivSummaryContext);
-  return value.hivSummary;
+  return { hivSummary: value.hivSummary, error: value.error };
 }
 
 export const HivSummaryProvider: React.FC<HivSummaryProviderProps> = ({ children, patient, patientUuid }) => {
@@ -49,12 +50,12 @@ export const HivSummaryProvider: React.FC<HivSummaryProviderProps> = ({ children
   }, [patientUuid]);
 
   const memorizedHivSummary = React.useMemo(() => {
-    return { hivSummary: hivSummaryData };
-  }, [hivSummaryData]);
+    return { hivSummary: hivSummaryData, error: error };
+  }, [hivSummaryData, error]);
 
   return (
     <HivSummaryContext.Provider value={memorizedHivSummary}>
-      {status === StateTypes.PENDING && <StructuredListSkeleton />}
+      {/* {status === StateTypes.PENDING && <StructuredListSkeleton />} */}
       {status === StateTypes.RESOLVED && children}
       {status === StateTypes.ERROR && <ErrorState headerTitle={t('hivSummary', 'HIV Summary')} error={error} />}
     </HivSummaryContext.Provider>

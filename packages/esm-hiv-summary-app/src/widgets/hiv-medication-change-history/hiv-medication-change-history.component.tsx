@@ -12,6 +12,8 @@ import DataTable, {
 import { useTranslation } from 'react-i18next';
 import { useHIVMedicationChangeHistory } from '../../hooks/useHIVMedicationChangeHistory';
 import { zeroVl } from '../helper';
+import { EmptyState } from '../empty-state';
+import { ErrorState } from '../error/error-state.component';
 
 interface HIVMedicationChangeHistoryProps {
   patientUuid: string;
@@ -19,7 +21,7 @@ interface HIVMedicationChangeHistoryProps {
 
 const HIVMedicationChangeHistory: React.FC<HIVMedicationChangeHistoryProps> = ({ patientUuid }) => {
   const { t } = useTranslation();
-  const { medicationChangeHistory } = useHIVMedicationChangeHistory(patientUuid);
+  const { medicationChangeHistory, fetchError } = useHIVMedicationChangeHistory(patientUuid);
 
   const headerData: Array<DataTableHeader> = useMemo(
     () => [
@@ -40,6 +42,19 @@ const HIVMedicationChangeHistory: React.FC<HIVMedicationChangeHistoryProps> = ({
       currentRegimen: medChangeHistory.current_regimen,
     };
   });
+
+  if (fetchError)
+    return (
+      <ErrorState headerTitle={t('hivMedicationChangeHistory', 'HIV Medication Change History')} error={fetchError} />
+    );
+
+  if (medicationChangeHistory && medicationChangeHistory.length === 0 && !fetchError)
+    return (
+      <EmptyState
+        headerTitle={t('hivMedicationChangeHistory', 'HIV Medication Change History')}
+        displayText={t('hivMedicationChangeHistory', 'HIV Medication Change History')}
+      />
+    );
 
   return (
     <DataTable rows={rowData} headers={headerData}>

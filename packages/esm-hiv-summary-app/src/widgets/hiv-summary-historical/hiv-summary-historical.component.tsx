@@ -14,10 +14,12 @@ import styles from './hiv-summary-historical.component.scss';
 import { useTranslation } from 'react-i18next';
 import { formatDate, zeroVl } from '../helper';
 import { useHivSummaryContext } from '../../hooks/useHivSummary';
+import { ErrorState } from '../error/error-state.component';
+import { EmptyState } from '../empty-state';
 
 const HivSummaryHistorical: React.FC = () => {
   const { t } = useTranslation();
-  const hivSummary = useHivSummaryContext();
+  const { hivSummary, error } = useHivSummaryContext();
   const tableHeaders: Array<DataTableHeader> = React.useMemo(
     () => [
       {
@@ -60,38 +62,47 @@ const HivSummaryHistorical: React.FC = () => {
     [hivSummary],
   );
 
-  return (
-    <TableContainer className={styles.tableContainer}>
-      <DataTable rows={tableRows} headers={tableHeaders} isSortable={true}>
-        {({ rows, headers, getHeaderProps, getTableProps }) => (
-          <Table {...getTableProps()}>
-            <TableHead>
-              <TableRow>
-                {headers.map((header) => (
-                  <TableHeader
-                    {...getHeaderProps({
-                      header,
-                      isSortable: header.isSortable,
-                    })}>
-                    {header.header?.content ?? header.header}
-                  </TableHeader>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody className={styles.tableBodyWrapper}>
-              {rows.map((row) => (
-                <TableRow style={{ background: 'red' }} key={row.id}>
-                  {row.cells.map((cell) => {
-                    return <TableCell key={cell.id}>{cell.value?.content ?? cell.value}</TableCell>;
-                  })}
+  if (error) return <ErrorState error={error} headerTitle={t('historicalSummary', 'HIV Historical Summary')} />;
+  if (hivSummary?.length === 0 && !error)
+    return (
+      <EmptyState
+        headerTitle={t('hivHistoricalSummary', 'Historical HIV Summary')}
+        displayText={t('hivHistoricalSummary', 'Historical HIV Summary')}
+      />
+    );
+  if (hivSummary?.length > 0 && !error)
+    return (
+      <TableContainer title={t('historicalHIVSummary', 'Historical HIV Summary')} className={styles.tableContainer}>
+        <DataTable rows={tableRows} headers={tableHeaders} isSortable={true}>
+          {({ rows, headers, getHeaderProps, getTableProps }) => (
+            <Table {...getTableProps()}>
+              <TableHead>
+                <TableRow>
+                  {headers.map((header) => (
+                    <TableHeader
+                      {...getHeaderProps({
+                        header,
+                        isSortable: header.isSortable,
+                      })}>
+                      {header.header?.content ?? header.header}
+                    </TableHeader>
+                  ))}
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        )}
-      </DataTable>
-    </TableContainer>
-  );
+              </TableHead>
+              <TableBody className={styles.tableBodyWrapper}>
+                {rows.map((row) => (
+                  <TableRow style={{ background: 'red' }} key={row.id}>
+                    {row.cells.map((cell) => {
+                      return <TableCell key={cell.id}>{cell.value?.content ?? cell.value}</TableCell>;
+                    })}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </DataTable>
+      </TableContainer>
+    );
 };
 
 export default HivSummaryHistorical;

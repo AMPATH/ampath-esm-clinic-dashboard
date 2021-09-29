@@ -14,7 +14,7 @@ interface HivLatestSummaryProps {
 
 const HivLatestSummary: React.FC<HivLatestSummaryProps> = ({ patient }) => {
   const { t } = useTranslation();
-  const hivSummaryData = useHivSummaryContext();
+  const { hivSummary: hivSummaryData, error } = useHivSummaryContext();
   const [patientContraception, setContraceptionEligibilityStatus] = useState<PatientContraceptionEligibility>(null);
   const [hivSummary, setHivSummary] = React.useState<HIVSummary>();
 
@@ -32,7 +32,7 @@ const HivLatestSummary: React.FC<HivLatestSummaryProps> = ({ patient }) => {
   };
 
   React.useEffect(() => {
-    if (hivSummaryData.length) {
+    if (hivSummaryData?.length) {
       const hivSum = loadHivSummary(hivSummaryData);
       setContraceptionEligibilityStatus(determineEligibilityForContraception(hivSum, patient));
       setHivSummary(hivSum);

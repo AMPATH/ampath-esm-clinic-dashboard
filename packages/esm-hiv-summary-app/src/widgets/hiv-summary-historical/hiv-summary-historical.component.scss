@@ -3,3 +3,7 @@
 .tableContainer {
     width: 100%;
 }
+.tableContainer table {
+    table-layout: auto;
+    width: 140vw;
+}

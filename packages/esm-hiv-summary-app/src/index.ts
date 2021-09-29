@@ -19,6 +19,7 @@ function setupOpenMRS() {
       {
         id: 'hiv-summary-widget',
         slot: 'patient-chart-summary-dashboard-slot',
+        order: 0,
         load: getAsyncLifecycle(() => import('./hiv-summary.component'), options),
         meta: {
           columnSpan: 4,

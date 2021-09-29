@@ -12,6 +12,8 @@
   "encounterDateChange": "Encounter Date change",
   "encounterType": "Encounter Type",
   "enrollmentDate": "Enrollment Date",
+  "error": "Error",
+  "errorCopy": "Sorry, there was a problem displaying this information. You can try to reload this page, or contact the site administrator and quote the error code above.",
   "historicalHIVSummary": "Historical HIV Summary",
   "hivClinicalSummary": "HIV Clinical Summary",
   "hivMedicationChangeHistory": "Medication Change History",

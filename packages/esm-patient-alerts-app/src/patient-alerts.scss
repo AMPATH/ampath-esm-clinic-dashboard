@@ -1,13 +1,16 @@
 @import "~carbon-components/src/globals/scss/vars";
 
+.notificationsPanel {
+  min-height: 8rem;
+}
+
 .emptyState {
-  margin: 2rem 1rem;
+  margin: 2rem 1rem 0rem 1rem;
   color: $ui-background;
 }
 
 .loading {
   margin: 1rem;
-  :global(.bx--inline-loading__text) {
-    color: white;
-  }
+  height: 2rem;
+  width: auto;
 }

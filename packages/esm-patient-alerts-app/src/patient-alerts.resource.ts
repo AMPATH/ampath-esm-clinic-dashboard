@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
-import { map } from 'rxjs/operators';
+import useSWR from 'swr';
 import { NotificationKind } from 'carbon-components-react';
-import { openmrsObservableFetch } from '@openmrs/esm-framework';
+import { openmrsFetch } from '@openmrs/esm-framework';
 
 export interface Reminder {
   action: boolean;
@@ -17,13 +17,23 @@ export interface Reminder {
   auto_register?: boolean;
 }
 
-export function fetchAlerts(patientUuid: string) {
+interface EtlRemindersResponse {
+  result: {
+    person_id: number;
+    person_uuid: string;
+    reminders: Array<Reminder>;
+  };
+}
+
+export function useAlerts(patientUuid: string) {
   const referenceDate = dayjs().format('YYYY-MM-DD');
   const apiUrl = `/etl-latest/etl/patient/${patientUuid}/hiv-clinical-reminder/${referenceDate}`;
 
-  return openmrsObservableFetch<{ result: { reminders: Array<Reminder> } }>(apiUrl).pipe(
-    map(({ data }) => {
-      return data.result.reminders;
-    }),
-  );
+  const { data, error } = useSWR<{ data: EtlRemindersResponse }, Error>(patientUuid ? apiUrl : null, openmrsFetch, {});
+
+  return {
+    data: data ? data.data.result.reminders : [],
+    isError: error,
+    isLoading: patientUuid && !data && !error,
+  };
 }

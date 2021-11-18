@@ -6,8 +6,8 @@ import { HIVSummary, PatientContraceptionEligibility } from '../../types';
 import WarningAlt16 from '@carbon/icons-react/es/warning--alt/20';
 import HivSummaryLabel from '../hiv-summary-label/hiv-summary-label.component';
 import { useTranslation } from 'react-i18next';
-import { useHIVSummary } from '../../hooks/useHIVSummary';
 import { ErrorState } from '../error/error-state.component';
+import { useHIVSummary } from '../../hooks/useHIVSummary';
 
 interface HivLatestSummaryProps {
   patient: fhir.Patient;
@@ -15,7 +15,7 @@ interface HivLatestSummaryProps {
 
 const HivLatestSummary: React.FC<HivLatestSummaryProps> = ({ patient }) => {
   const { t } = useTranslation();
-  const { hivSummary: hivSummaryData, error } = useHIVSummary(patient.id);
+  const { hivSummary: hivSummaryData, error, isValidating } = useHIVSummary(patient.id);
   const [patientContraception, setContraceptionEligibilityStatus] = useState<PatientContraceptionEligibility>(null);
   const [hivSummary, setHivSummary] = React.useState<HIVSummary>();
 

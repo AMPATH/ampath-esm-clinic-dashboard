@@ -31,10 +31,11 @@ interface HIVMedicationChangeHistoryFetchResponse {
 export const useHIVSummary = (patientUuid: string, startIndex: number = 0, limit: number = 20) => {
   const [summary, setSummary] = useState<Array<HIVSummary>>([]);
   const url = `/etl-latest/etl/patient/${patientUuid}/hiv-summary?startIndex=${startIndex}&limit=${limit}&includeNonClinicalEncounter=${false}`;
-  const { data: hivSummaryResponse, error } = useSWR<{ data: HivSummaryFetchResponse }>(
-    patientUuid ? url : null,
-    openmrsFetch,
-  );
+  const {
+    data: hivSummaryResponse,
+    error,
+    isValidating,
+  } = useSWR<{ data: HivSummaryFetchResponse }>(patientUuid ? url : null, openmrsFetch);
 
   useEffect(() => {
     if (hivSummaryResponse) {
@@ -48,7 +49,7 @@ export const useHIVSummary = (patientUuid: string, startIndex: number = 0, limit
     }
   }, [hivSummaryResponse]);
 
-  return { hivSummary: summary, error, isLoading: patientUuid && !summary && !error };
+  return { hivSummary: summary, error, isLoading: patientUuid && !summary && !error, isValidating };
 };
 
 /**
@@ -60,7 +61,7 @@ export const useHIVSummary = (patientUuid: string, startIndex: number = 0, limit
 export const useHIVMedicationChangeHistory = (patientUuid: string) => {
   const [medicationChange, setMedicationChange] = useState<Array<MedicationChangeHistory>>([]);
   const url = `/etl-latest/etl/patient/${patientUuid}/medical-history-report`;
-  const { data, error } = useSWR<{ data: HIVMedicationChangeHistoryFetchResponse }>(
+  const { data, error, isValidating } = useSWR<{ data: HIVMedicationChangeHistoryFetchResponse }>(
     patientUuid ? url : null,
     openmrsFetch,
   );
@@ -71,5 +72,5 @@ export const useHIVMedicationChangeHistory = (patientUuid: string) => {
     }
   }, [data]);
 
-  return { medicationChangeHistory: medicationChange, fetchError: error, isLoading: !data && !error };
+  return { medicationChangeHistory: medicationChange, fetchError: error, isLoading: !data && !error, isValidating };
 };

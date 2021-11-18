@@ -7,6 +7,8 @@ import HivLatestSummary from './widgets/hiv-latest-summary/hiv-latest-summary.co
 import HivSummaryHistorical from './widgets/hiv-summary-historical/hiv-summary-historical.component';
 import HIVMedicationChangeHistory from './widgets/hiv-medication-change-history/hiv-medication-change-history.component';
 import HIVClinicalSummary from './widgets/hiv-clinical-summary/hiv-clinical-summary.component';
+import { Loading } from 'carbon-components-react';
+import { useHIVSummary } from './hooks/useHIVSummary';
 
 interface HivSummaryProps {
   patientUuid: string;
@@ -18,6 +20,7 @@ const HivSummary: React.FC<HivSummaryProps> = ({ patient, patientUuid }) => {
 
   const headerTitle = t('hivSummary', 'HIV Summary');
   const [selectedSwitchIndex, setSelectedSwitchIndex] = useState<number>(0);
+  const { isValidating } = useHIVSummary(patientUuid);
 
   const hivSummaryTabs = useMemo(
     () => [
@@ -34,6 +37,7 @@ const HivSummary: React.FC<HivSummaryProps> = ({ patient, patientUuid }) => {
     <div className={styles.hivSummaryContainer}>
       <div className={styles.hivSummaryHeader}>
         <h4 className={`${styles.productiveHeading03} ${styles.text02}`}>{headerTitle}</h4>
+        <div>{isValidating ? <Loading description="Loading" small={true} withOverlay={false} /> : null}</div>
       </div>
       <div className={styles.contentSwitcherContainer}>
         <ContentSwitcher onChange={({ index }) => setSelectedSwitchIndex(index)} size="lg">

@@ -2,19 +2,19 @@ import React from 'react';
 import { screen, render } from '@testing-library/react';
 import HIVMedicationChangeHistory from './hiv-medication-change-history.component';
 import { mockMedicationChangeHistory } from '../../../../../__mocks__/mock-hiv-summary';
-import { useHIVMedicationChangeHistory } from '../../hooks/useHIVMedicationChangeHistory';
+import { useHIVMedicationChangeHistory } from '../../hooks/useHIVSummary';
 
 const mockUseHIVMedicationChangeHistory = useHIVMedicationChangeHistory as jest.Mock;
 
-jest.mock('../../hooks/useHIVMedicationChangeHistory', () => ({
+jest.mock('../../hooks/useHIVSummary', () => ({
   useHIVMedicationChangeHistory: jest.fn(),
 }));
 
 describe('<HIVMedicationChangeHistory/>', () => {
   const renderMedicationChangeHistory = () => {
     mockUseHIVMedicationChangeHistory.mockReturnValue({
-      fetchError: null,
       medicationChangeHistory: mockMedicationChangeHistory,
+      fetchError: null,
     });
     render(<HIVMedicationChangeHistory patientUuid={'mock-uuid'} />);
   };

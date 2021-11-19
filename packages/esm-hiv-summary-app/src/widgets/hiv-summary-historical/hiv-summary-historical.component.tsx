@@ -13,13 +13,17 @@ import DataTable, {
 import styles from './hiv-summary-historical.component.scss';
 import { useTranslation } from 'react-i18next';
 import { formatDate, zeroVl } from '../helper';
-import { useHivSummaryContext } from '../../hooks/useHivSummary';
 import { ErrorState } from '../error/error-state.component';
 import { EmptyState } from '../empty-state';
+import { useHIVSummary } from '../../hooks/useHIVSummary';
 
-const HivSummaryHistorical: React.FC = () => {
+interface HIVSummaryChangeProps {
+  patientUuid: string;
+}
+
+const HivSummaryHistorical: React.FC<HIVSummaryChangeProps> = ({ patientUuid }) => {
   const { t } = useTranslation();
-  const { hivSummary, error } = useHivSummaryContext();
+  const { hivSummary, error } = useHIVSummary(patientUuid);
   const tableHeaders: Array<DataTableHeader> = React.useMemo(
     () => [
       {

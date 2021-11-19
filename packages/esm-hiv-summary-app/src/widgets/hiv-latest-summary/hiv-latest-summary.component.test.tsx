@@ -1,21 +1,22 @@
 import React from 'react';
 import HivLatestSummary from './hiv-latest-summary.component';
-import { render, screen } from '@testing-library/react';
+import { render, RenderResult, screen } from '@testing-library/react';
 import { mockPatient } from '../../../../../__mocks__/mock-patient';
 import { mockHIVSummary } from '../../../../../__mocks__/mock-hiv-summary';
-import * as useHivSummaryContext from '../../hooks/useHivSummary';
+import * as useHivSummary from '../../hooks/useHIVSummary';
 
 describe('<HivLatestSummary/>', () => {
+  let result: RenderResult;
   const renderHIVSummary = () => {
-    spyOn(useHivSummaryContext, 'useHivSummaryContext').and.returnValue(mockHIVSummary);
-    render(<HivLatestSummary patient={mockPatient} />);
+    spyOn(useHivSummary, 'useHIVSummary').and.returnValue({ hivSummary: mockHIVSummary, error: null });
+    result = render(<HivLatestSummary patient={mockPatient} />);
   };
 
   beforeEach(() => {
     renderHIVSummary();
   });
 
-  xit('should render hiv-summary correctly', async () => {
+  it('should render hiv-summary correctly', async () => {
     expect(await screen.findByText(/ARV Initiation Start Date/i)).toBeInTheDocument();
     expect(screen.getByText(/Current ARV Regimen Start Date/, { exact: true })).toBeInTheDocument();
     expect(screen.getByText(/LAMIVUDINE, TENOFOVIR, DOLUTEGRAVIR/i)).toBeInTheDocument();
@@ -33,6 +34,7 @@ describe('<HivLatestSummary/>', () => {
     expect(screen.getByText(/1086/i)).toBeInTheDocument();
     expect(screen.getByText(/Other/i)).toBeInTheDocument();
     expect(screen.getByText(/Contraception Method/i)).toBeInTheDocument();
+    expect(screen.getByText('(Not eligible) Male Patient')).toBeInTheDocument();
     expect(screen.getByText(/Enrollment Date/i)).toBeInTheDocument();
     expect(screen.getByText(/INH Prophylaxis Start Date/i)).toBeInTheDocument();
     expect(screen.getByText(/INH Prophylaxis End Date/i)).toBeInTheDocument();

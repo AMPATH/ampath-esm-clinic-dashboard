@@ -10,10 +10,10 @@ import DataTable, {
   DataTableHeader,
 } from 'carbon-components-react/es/components/DataTable';
 import { useTranslation } from 'react-i18next';
-import { useHIVMedicationChangeHistory } from '../../hooks/useHIVMedicationChangeHistory';
 import { zeroVl } from '../helper';
 import { EmptyState } from '../empty-state';
 import { ErrorState } from '../error/error-state.component';
+import { useHIVMedicationChangeHistory } from '../../hooks/useHIVSummary';
 
 interface HIVMedicationChangeHistoryProps {
   patientUuid: string;

@@ -1,16 +1,16 @@
 import React from 'react';
-import * as useHivSummaryContext from '../../hooks/useHivSummary';
+import * as useHIVSummary from '../../hooks/useHIVSummary';
 import HivSummaryHistorical from './hiv-summary-historical.component';
 import { mockHIVSummary } from '../../../../../__mocks__/mock-hiv-summary';
 import { render, screen, within } from '@testing-library/react';
 
 describe('<HivSummaryHistorical/>', () => {
   beforeEach(() => {
-    spyOn(useHivSummaryContext, 'useHivSummaryContext').and.returnValue(mockHIVSummary);
-    render(<HivSummaryHistorical />);
+    spyOn(useHIVSummary, 'useHIVSummary').and.returnValue({ hivSummary: mockHIVSummary, error: null });
+    render(<HivSummaryHistorical patientUuid={'some-patient-uuid'} />);
   });
 
-  xit('should render hiv-summary historical table correctly', async () => {
+  it('should render hiv-summary historical table correctly', async () => {
     const table = await screen.findByRole('table');
     const [columnNames, ...rows] = within(table).getAllByRole('rowgroup');
     expect(within(columnNames).getByText('Encounter Date')).toBeInTheDocument();

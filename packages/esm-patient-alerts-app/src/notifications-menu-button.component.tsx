@@ -17,6 +17,7 @@ const NotificationsMenuButton: React.FC<NotificationsMenuButtonProps> = ({ isAct
 
   return (
     <HeaderGlobalAction
+      className={styles.menuButton}
       aria-label="Notifications"
       aria-labelledby="Notifications Icon"
       name="Notifications"

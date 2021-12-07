@@ -1,5 +1,15 @@
+@import "~@openmrs/esm-styleguide/src/vars";
+
 .unreadAlertsIndicator > circle {
   color: red;
   stroke: white;
   stroke-width: 2px;
+}
+
+.menuButton {
+  background-color: transparent;
+
+  &:hover {
+    background-color: $brand-02
+  }
 }

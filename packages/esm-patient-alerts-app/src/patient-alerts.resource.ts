@@ -29,7 +29,7 @@ export function useAlerts(patientUuid: string) {
   const referenceDate = dayjs().format('YYYY-MM-DD');
   const apiUrl = `/etl-latest/etl/patient/${patientUuid}/hiv-clinical-reminder/${referenceDate}`;
 
-  const { data, error } = useSWR<{ data: EtlRemindersResponse }, Error>(patientUuid ? apiUrl : null, openmrsFetch, {});
+  const { data, error } = useSWR<{ data: EtlRemindersResponse }, Error>(patientUuid ? apiUrl : null, openmrsFetch);
 
   return {
     data: data ? data.data.result.reminders : [],

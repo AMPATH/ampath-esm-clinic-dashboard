@@ -79,7 +79,7 @@ const HivSummaryHistorical: React.FC<HIVSummaryChangeProps> = ({ patientUuid }) 
       <TableContainer title={t('historicalHIVSummary', 'Historical HIV Summary')} className={styles.tableContainer}>
         <DataTable rows={tableRows} headers={tableHeaders} isSortable={true}>
           {({ rows, headers, getHeaderProps, getTableProps }) => (
-            <Table {...getTableProps()}>
+            <Table size="compact" {...getTableProps()}>
               <TableHead>
                 <TableRow>
                   {headers.map((header) => (

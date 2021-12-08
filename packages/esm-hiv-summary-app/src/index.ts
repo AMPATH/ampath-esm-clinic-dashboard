@@ -21,7 +21,6 @@ function setupOpenMRS() {
       {
         id: 'hiv-summary-widget',
         slot: 'patient-chart-summary-dashboard-slot',
-        order: 0,
         load: getAsyncLifecycle(() => import('./hiv-summary.component'), options),
         meta: {
           columnSpan: 4,
@@ -30,7 +29,6 @@ function setupOpenMRS() {
       {
         id: 'hiv-summary-overview-widget',
         slot: dashboardMeta.slot,
-        order: 0,
         load: getAsyncLifecycle(() => import('./widgets/hiv-summary-overview/hiv-summary-overview.component'), options),
         meta: {
           columnSpan: 4,
@@ -39,7 +37,6 @@ function setupOpenMRS() {
       {
         id: 'hiv-summary-nav-link',
         slot: 'patient-chart-dashboard-slot',
-        order: 1,
         load: getSyncLifecycle(createDashboardLink(dashboardMeta), options),
         meta: dashboardMeta,
         online: true,

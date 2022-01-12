@@ -46,6 +46,7 @@ export interface HIVSummary {
   enrollment_location_id?: number;
   expected_vl_date?: Date | string | number;
   height?: number;
+  gbv_screening_result: number | null;
   hiv_dna_pcr_1?: string;
   hiv_dna_pcr_1_date?: string;
   hiv_dna_pcr_2?: string;

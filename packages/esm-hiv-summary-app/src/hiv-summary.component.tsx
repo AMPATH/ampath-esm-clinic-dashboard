@@ -9,6 +9,7 @@ import HIVMedicationChangeHistory from './widgets/hiv-medication-change-history/
 import HIVClinicalSummary from './widgets/hiv-clinical-summary/hiv-clinical-summary.component';
 import { Loading } from 'carbon-components-react';
 import { useHIVSummary } from './hooks/useHIVSummary';
+import ScreeningTags from './widgets/screening-tags/screening-tags.component';
 
 interface HivSummaryProps {
   patientUuid: string;
@@ -39,6 +40,7 @@ const HivSummary: React.FC<HivSummaryProps> = ({ patient, patientUuid }) => {
         <h4 className={`${styles.productiveHeading03} ${styles.text02}`}>{headerTitle}</h4>
         <div>{isValidating ? <Loading description="Loading" small={true} withOverlay={false} /> : null}</div>
       </div>
+      <ScreeningTags patient={patient} patientUuid={patientUuid} />
       <div className={styles.contentSwitcherContainer}>
         <ContentSwitcher onChange={({ index }) => setSelectedSwitchIndex(index)} size="lg">
           {hivSummaryTabs.map((hivSummaryTab, index) => (

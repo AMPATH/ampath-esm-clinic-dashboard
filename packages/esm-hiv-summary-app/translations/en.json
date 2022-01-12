@@ -15,6 +15,7 @@
   "enrollmentDate": "Enrollment Date",
   "error": "Error",
   "errorCopy": "Sorry, there was a problem displaying this information. You can try to reload this page, or contact the site administrator and quote the error code above.",
+  "gbvScreening": "GBV Screening",
   "historicalHIVSummary": "Historical HIV Summary",
   "historicalSummary": "HIV Historical Summary",
   "hivClinicalSummary": "HIV Clinical Summary",
@@ -37,6 +38,7 @@
   "other": "Other",
   "pendingCD4CountTestOrderedHelp": "There is a Pending CD4 Count Test Ordered on",
   "pendingViralLoadOrderedText": "There is a Pending Viral Load Test Ordered on",
+  "positive": "POSITIVE",
   "previousVisitSummary": "Previous Visit Summary",
   "previousVL": "Previous VL",
   "previousVlDate": "Previous Vl Date",
@@ -45,6 +47,7 @@
   "tbTreatmentEndDate": "TB Treat End Date",
   "tbTreatmentStartDate": "TB Treat Start Date",
   "unKnownOrNotIndicated": "Unknown or Not indicated",
+  "vacScreening": "VAC Screening",
   "vitalLoad": "Viral Load",
   "whoStage": "WHO Stage"
 }

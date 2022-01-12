@@ -21,6 +21,7 @@ export const mockHIVSummary = [
     ovc_non_enrollment_date: null,
     hiv_start_date: '2009-11-06T21:00:00.000Z',
     death_date: null,
+    gbv_screening_result: 1,
     scheduled_visit: 1246,
     transfer_in: null,
     transfer_in_location_id: 206,

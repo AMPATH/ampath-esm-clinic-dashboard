@@ -1,9 +1,11 @@
 @import '../../root.scss';
 
-.tableContainer {
-    width: 100%;
-}
+
 .tableContainer table {
-    table-layout: auto;
-    width: 140vw;
+  width: 100%;
 }
+
+.tableContainer table thead {
+  height: 4rem !important;
+}
+

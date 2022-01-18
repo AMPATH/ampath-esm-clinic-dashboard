@@ -8,6 +8,7 @@ import HivSummaryLabel from '../hiv-summary-label/hiv-summary-label.component';
 import { useTranslation } from 'react-i18next';
 import { ErrorState } from '../error/error-state.component';
 import { useHIVSummary } from '../../hooks/useHIVSummary';
+import { EmptyState } from '../empty-state';
 
 interface HivLatestSummaryProps {
   patient: fhir.Patient;
@@ -43,6 +44,7 @@ const HivLatestSummary: React.FC<HivLatestSummaryProps> = ({ patient }) => {
   return (
     <>
       {error && <ErrorState headerTitle={t('latestHIVSummary', 'Latest HIV Summary')} error={error} />}
+      {hivSummaryData.length === 0 && !error && <EmptyState headerTitle="HIV Summary" displayText="HIV Summary" />}
       {hivSummary && (
         <div className={styles.hivLatestSummaryWrapper}>
           <section id="ARV">

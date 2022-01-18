@@ -10,6 +10,8 @@ import HIVClinicalSummary from './widgets/hiv-clinical-summary/hiv-clinical-summ
 import { Loading } from 'carbon-components-react';
 import { useHIVSummary } from './hooks/useHIVSummary';
 import ScreeningTags from './widgets/screening-tags/screening-tags.component';
+import { useLayoutType } from '@openmrs/esm-framework';
+import PreviousVisitSummary from './widgets/previous-visit-summary/previous-visit-summary.component';
 
 interface HivSummaryProps {
   patientUuid: string;
@@ -18,7 +20,7 @@ interface HivSummaryProps {
 
 const HivSummary: React.FC<HivSummaryProps> = ({ patient, patientUuid }) => {
   const { t } = useTranslation();
-
+  const isTablet = useLayoutType() === 'tablet';
   const headerTitle = t('hivSummary', 'HIV Summary');
   const [selectedSwitchIndex, setSelectedSwitchIndex] = useState<number>(0);
   const { isValidating } = useHIVSummary(patientUuid);
@@ -42,7 +44,10 @@ const HivSummary: React.FC<HivSummaryProps> = ({ patient, patientUuid }) => {
       </div>
       <ScreeningTags patient={patient} patientUuid={patientUuid} />
       <div className={styles.contentSwitcherContainer}>
-        <ContentSwitcher onChange={({ index }) => setSelectedSwitchIndex(index)} size="lg">
+        <ContentSwitcher
+          className={isTablet ? styles.tabletContentSwitcher : styles.desktopContentSwitcher}
+          onChange={({ index }) => setSelectedSwitchIndex(index)}
+          size="lg">
           {hivSummaryTabs.map((hivSummaryTab, index) => (
             <Switch key={index} name={hivSummaryTab.label} text={hivSummaryTab.label} />
           ))}
@@ -51,6 +56,7 @@ const HivSummary: React.FC<HivSummaryProps> = ({ patient, patientUuid }) => {
         <div>{selectedSwitchIndex === 1 && <HivSummaryHistorical patientUuid={patientUuid} />}</div>
         <div>{selectedSwitchIndex === 2 && <HIVMedicationChangeHistory patientUuid={patientUuid} />}</div>
         <div>{selectedSwitchIndex === 3 && <HIVClinicalSummary patientUuid={patientUuid} />}</div>
+        <div>{selectedSwitchIndex === 4 && <PreviousVisitSummary />}</div>
       </div>
     </div>
   );

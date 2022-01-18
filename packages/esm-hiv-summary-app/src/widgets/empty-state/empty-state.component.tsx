@@ -10,24 +10,19 @@ export interface EmptyStateProps {
   launchForm?(): void;
 }
 
-export const EmptyState: React.FC<EmptyStateProps> = (props) => {
+export const EmptyState: React.FC<EmptyStateProps> = ({ headerTitle, displayText, launchForm }) => {
   const { t } = useTranslation();
 
   return (
     <Tile light className={styles.tile}>
-      <h1 className={styles.heading}>{props.headerTitle}</h1>
       <EmptyDataIllustration />
-      <p className={styles.content}>
-        <Trans i18nKey="emptyStateText" values={{ displayText: props.displayText.toLowerCase() }}>
-          There are no {props.displayText.toLowerCase()} to display for this patient
-        </Trans>
-      </p>
+      <p className={styles.content}>There is no {displayText} to display for this patient</p>
       <p className={styles.action}>
-        {props.launchForm && (
+        {launchForm && (
           <span>
             {' '}
-            <Link onClick={() => props.launchForm()}>
-              {t('record', 'Record')} {props.displayText.toLowerCase()}
+            <Link onClick={() => launchForm()}>
+              {t('record', 'Record')} {displayText.toLowerCase()}
             </Link>
           </span>
         )}

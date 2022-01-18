@@ -5,6 +5,6 @@ const mockPatientUuid = 'some-patient-uuid';
 describe('HIVClinicalSummary', () => {
   it('renders without dying', () => {
     render(<HIVClinicalSummary patientUuid={mockPatientUuid} />);
-    expect(screen.getByText(/HIV Clinical Summary/i)).toBeInTheDocument();
+    expect(screen.getByText('Coming Soon (Under Development)')).toBeInTheDocument();
   });
 });

@@ -1,5 +1,7 @@
-@import "~carbon-components/scss/globals/scss/vendor/@carbon/elements/scss/type/styles";
-@import "~carbon-components/src/globals/scss/vendor/@carbon/layout/scss/generated/spacing";
+
+@import "~@openmrs/esm-styleguide/src/vars";
+@import "~carbon-components/src/globals/scss/vars";
+@import "~carbon-components/src/globals/scss/mixins";
 
 .productiveHeading01 {
   @include carbon--type-style("productive-heading-01");
@@ -46,4 +48,19 @@
 
 .label01 {
   @include carbon--type-style("label-01");
+}
+
+
+.tile {
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: $ui-02
+}
+
+.displayText {
+    @extend .productiveHeading01;
+    margin: $spacing-07;
 }

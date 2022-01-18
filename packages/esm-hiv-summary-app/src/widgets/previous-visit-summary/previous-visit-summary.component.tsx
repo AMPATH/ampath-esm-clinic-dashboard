@@ -2,13 +2,9 @@ import { Tile } from 'carbon-components-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { EmptyDataIllustration } from '../empty-state';
-import styles from './hiv-clinical-summary.component.scss';
+import styles from './previous-visit-summary.scss';
 
-interface HIVClinicalSummaryProps {
-  patientUuid: string;
-}
-
-const HIVClinicalSummary: React.FC<HIVClinicalSummaryProps> = ({ patientUuid }) => {
+const PreviousVisitSummary: React.FC = () => {
   const { t } = useTranslation();
   return (
     <Tile className={styles.tile}>
@@ -18,4 +14,4 @@ const HIVClinicalSummary: React.FC<HIVClinicalSummaryProps> = ({ patientUuid }) 
   );
 };
 
-export default HIVClinicalSummary;
+export default PreviousVisitSummary;

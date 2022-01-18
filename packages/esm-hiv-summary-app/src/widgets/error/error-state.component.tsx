@@ -2,9 +2,11 @@ import React from 'react';
 import styles from './error-state.scss';
 import { Tile } from 'carbon-components-react';
 import { useTranslation } from 'react-i18next';
+import { OpenmrsFetchError } from '@openmrs/esm-framework';
+import { EmptyDataIllustration } from '../empty-state';
 
 export interface ErrorStateProps {
-  error: any;
+  error: OpenmrsFetchError;
   headerTitle: string;
 }
 
@@ -13,7 +15,7 @@ export const ErrorState: React.FC<ErrorStateProps> = ({ error, headerTitle }) =>
 
   return (
     <Tile light className={styles.tile}>
-      <h1 className={styles.heading}>{headerTitle}</h1>
+      <EmptyDataIllustration />
       <p className={styles.errorMessage}>
         {t('error', 'Error')} {`${error?.response?.status}: `}
         {error?.response?.statusText}

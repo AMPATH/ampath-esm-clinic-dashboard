@@ -5,8 +5,9 @@
 .errorMessage {
   @include carbon--type-style("productive-heading-02");
   color: $text-01;
-  margin-top: 2.25rem;
+  margin-top: 2rem;
   margin-bottom: $spacing-03;
+  margin-top: $spacing-08;
 }
 
 .errorCopy {
@@ -33,5 +34,6 @@
 
 .tile {
   text-align: center;
-  border: 1px solid $ui-03;
+  min-height: 300px;
+  padding: $spacing-05;
 }

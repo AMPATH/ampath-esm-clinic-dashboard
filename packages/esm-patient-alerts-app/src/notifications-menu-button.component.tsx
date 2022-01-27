@@ -13,7 +13,7 @@ interface NotificationsMenuButtonProps {
 }
 
 const NotificationsMenuButton: React.FC<NotificationsMenuButtonProps> = ({ isActivePanel, togglePanel }) => {
-  const { hasUnreadAlerts, hasViewedAlerts } = useStore(patientAlertsStore);
+  const { alerts } = useStore(patientAlertsStore);
 
   return (
     <HeaderGlobalAction
@@ -25,7 +25,7 @@ const NotificationsMenuButton: React.FC<NotificationsMenuButtonProps> = ({ isAct
       onClick={() => togglePanel('notificationsMenu')}>
       {isActivePanel('notificationsMenu') ? (
         <Close20 />
-      ) : hasUnreadAlerts && !hasViewedAlerts ? (
+      ) : alerts?.length ? (
         <NotificationNew20 className={styles.unreadNotificationsIndicator} title="Unread alerts" />
       ) : (
         <Notification20 />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePatient } from '@openmrs/esm-framework';
 import { SearchSkeleton, ToastNotification } from 'carbon-components-react';
-import { useCurrentPatient } from '@openmrs/esm-framework';
 import { useAlerts } from './patient-alerts.resource';
 import { setHasUnreadAlerts, setHasViewedAlerts } from './store';
 import styles from './patient-alerts.scss';
@@ -12,8 +12,8 @@ interface PatientAlertsComponentProps {
 
 export default function PatientAlertsComponent({ expanded }: PatientAlertsComponentProps) {
   const { t } = useTranslation();
-  const [, patient] = useCurrentPatient();
-  const { data: alerts, isLoading } = useAlerts(patient?.id);
+  const { patient } = usePatient();
+  const { alerts, isLoading } = useAlerts(patient?.id);
 
   React.useEffect(() => {
     if (!expanded && alerts.length) {

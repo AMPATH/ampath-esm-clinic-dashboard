@@ -32,7 +32,7 @@ export function useAlerts(patientUuid: string) {
   const { data, error } = useSWR<{ data: EtlRemindersResponse }, Error>(patientUuid ? apiUrl : null, openmrsFetch);
 
   return {
-    data: data ? data.data.result.reminders : [],
+    alerts: data ? data?.data?.result?.reminders : [],
     isError: error,
     isLoading: patientUuid && !data && !error,
   };

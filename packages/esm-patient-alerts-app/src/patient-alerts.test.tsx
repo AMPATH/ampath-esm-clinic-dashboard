@@ -1,9 +1,9 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import { openmrsFetch } from '@openmrs/esm-framework';
-import PatientAlertsComponent from './patient-alerts.component';
 import { mockPatient } from '../../../__mocks__/mock-patient';
 import { swrRender, waitForLoadingToFinish } from '../../../tools/test-helpers';
+import PatientAlertsComponent from './patient-alerts.component';
 
 const testProps = {
   expanded: true,
@@ -32,7 +32,12 @@ jest.mock('@openmrs/esm-framework', () => {
     ...originalModule,
     openmrsFetch: jest.fn(),
     showNotification: jest.fn(),
-    useCurrentPatient: jest.fn(() => [false, mockPatient, null, null]),
+    usePatient: jest.fn(() => ({
+      error: null,
+      isLoading: false,
+      patient: mockPatient,
+      patientUuid: mockPatient.id,
+    })),
   };
 });
 

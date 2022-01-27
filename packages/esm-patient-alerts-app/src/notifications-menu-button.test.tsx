@@ -1,7 +1,7 @@
 import React from 'react';
+import { useStore } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import NotificationsMenuButton from './notifications-menu-button.component';
-import { useStore } from '@openmrs/esm-framework';
 
 const testProps = {
   isActivePanel: jest.fn(),
@@ -15,8 +15,6 @@ jest.mock('@openmrs/esm-framework', () => {
 
   return {
     ...originalModule,
-    openmrsObservableFetch: jest.fn(),
-    useCurrentPatient: jest.fn(),
     useStore: jest.fn(),
   };
 });

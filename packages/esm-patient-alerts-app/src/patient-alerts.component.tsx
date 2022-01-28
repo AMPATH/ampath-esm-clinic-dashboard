@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { usePatient } from '@openmrs/esm-framework';
+import { showToast, usePatient, useStore } from '@openmrs/esm-framework';
 import { SearchSkeleton, ToastNotification } from 'carbon-components-react';
 import { useAlerts } from './patient-alerts.resource';
-import { setHasUnreadAlerts, setHasViewedAlerts } from './store';
+import { patientAlertsStore, setHasUnreadAlerts, setHasViewedAlerts, setAlerts } from './store';
 import styles from './patient-alerts.scss';
 
 interface PatientAlertsComponentProps {
@@ -14,15 +14,26 @@ export default function PatientAlertsComponent({ expanded }: PatientAlertsCompon
   const { t } = useTranslation();
   const { patient } = usePatient();
   const { alerts, isLoading } = useAlerts(patient?.id);
+  const { hasViewedAlerts } = useStore(patientAlertsStore);
 
   React.useEffect(() => {
-    if (!expanded && alerts.length) {
+    if (!expanded && alerts.length && !hasViewedAlerts) {
       setHasUnreadAlerts(true);
+      setAlerts(alerts);
+      alerts.map((alert) => {
+        showToast({
+          critical: true,
+          description: alert.message,
+          title: alert.title,
+          kind: alert.type === 'danger' ? 'error' : alert.type,
+          millis: 10000,
+        });
+      });
+      setHasViewedAlerts(true);
     }
-  }, [expanded, alerts]);
+  }, [expanded, alerts, hasViewedAlerts]);
 
   if (expanded) {
-    setHasViewedAlerts(true);
     return (
       <div className={styles.notificationsPanel}>
         {isLoading && patient?.id ? <SearchSkeleton role="progressbar" className={styles.loading} /> : null}
@@ -30,8 +41,9 @@ export default function PatientAlertsComponent({ expanded }: PatientAlertsCompon
           <div>
             {alerts.map((alert, index) => (
               <ToastNotification
+                lowContrast
                 key={index}
-                kind={alert.type === 'danger' ? 'warning' : alert.type}
+                kind={alert.type === 'danger' ? 'error' : alert.type}
                 subtitle={<span>{alert.message}</span>}
                 title={alert.title}
               />

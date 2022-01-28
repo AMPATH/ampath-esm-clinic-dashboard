@@ -1,12 +1,11 @@
 @import "../../root.scss";
 @import "~@openmrs/esm-styleguide/src/vars";
 
-.hivLatestSummaryWrapper{
-    margin: 1rem 0;
-    display: flex;
-    height: 25rem;
-    flex-wrap: wrap;
-    flex-direction: column;
+.hivLatestSummaryWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: $spacing-03 $spacing-05;
+  overflow-x: scroll;
 }
 
 .contraceptionContainer {

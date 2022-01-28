@@ -47,31 +47,36 @@ const HivLatestSummary: React.FC<HivLatestSummaryProps> = ({ patient }) => {
       {hivSummaryData.length === 0 && !error && <EmptyState headerTitle="HIV Summary" displayText="HIV Summary" />}
       {hivSummary && (
         <div className={styles.hivLatestSummaryWrapper}>
-          <section id="ARV">
-            <p>{t('arv', 'ARV')}</p>
-            <HivSummaryLabel
-              title={t('arvInitStartDate', 'ARV Initiation Start Date')}
-              value={
-                hivSummary?.arv_first_regimen_start_date
-                  ? formatDate(hivSummary?.arv_first_regimen_start_date)
-                  : t('unKnownOrNotIndicated', 'Unknown or Not indicated')
-              }
-            />
-            <HivSummaryLabel
-              title={t('currentARVRegiment', 'Current ARV Regimen')}
-              value={hivSummary?.cur_arv_meds ? hivSummary?.cur_arv_meds : `(${t('none', 'None')})`}
-            />
-            <HivSummaryLabel title={'Current ARV Regimen Start Date'} value={formatDate(hivSummary?.arv_start_date)} />
-            <HivSummaryLabel title={'RTC Date'} value={formatDate(hivSummary?.rtc_date)} />
-          </section>
-          <section id="Last Appointment">
-            <p>{t('lastAppointment', 'Last Appointment')}</p>
-            <HivSummaryLabel
-              title={t('lastApptDate', 'Last Appt Date')}
-              value={`${formatDate(hivSummary?.encounter_datetime)} ${
-                hivSummary?.encounter_type_name ? `(${hivSummary.encounter_type_name})` : t('none', 'None')
-              }`}
-            />
+          <section>
+            <section id="ARV">
+              <p>{t('arv', 'ARV')}</p>
+              <HivSummaryLabel
+                title={t('arvInitStartDate', 'ARV Initiation Start Date')}
+                value={
+                  hivSummary?.arv_first_regimen_start_date
+                    ? formatDate(hivSummary?.arv_first_regimen_start_date)
+                    : t('unKnownOrNotIndicated', 'Unknown or Not indicated')
+                }
+              />
+              <HivSummaryLabel
+                title={t('currentARVRegiment', 'Current ARV Regimen')}
+                value={hivSummary?.cur_arv_meds ? hivSummary?.cur_arv_meds : `(${t('none', 'None')})`}
+              />
+              <HivSummaryLabel
+                title={'Current ARV Regimen Start Date'}
+                value={formatDate(hivSummary?.arv_start_date)}
+              />
+              <HivSummaryLabel title={'RTC Date'} value={formatDate(hivSummary?.rtc_date)} />
+            </section>
+            <section id="Last Appointment">
+              <p>{t('lastAppointment', 'Last Appointment')}</p>
+              <HivSummaryLabel
+                title={t('lastApptDate', 'Last Appt Date')}
+                value={`${formatDate(hivSummary?.encounter_datetime)} ${
+                  hivSummary?.encounter_type_name ? `(${hivSummary.encounter_type_name})` : t('none', 'None')
+                }`}
+              />
+            </section>
           </section>
           <section id="Lab">
             <p>{t('lab', 'Lab')}</p>

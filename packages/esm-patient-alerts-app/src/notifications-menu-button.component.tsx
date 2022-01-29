@@ -14,16 +14,16 @@ interface NotificationsMenuButtonProps {
 
 const NotificationsMenuButton: React.FC<NotificationsMenuButtonProps> = ({ isActivePanel, togglePanel }) => {
   const { alerts } = useStore(patientAlertsStore);
-
+  const isActive = isActivePanel('notificationsMenu');
   return (
     <HeaderGlobalAction
-      className={styles.menuButton}
+      className={isActive ? styles.activeMenuButton : styles.menuButton}
       aria-label="Notifications"
       aria-labelledby="Notifications Icon"
       name="Notifications"
       isActive={isActivePanel('notificationsMenu')}
       onClick={() => togglePanel('notificationsMenu')}>
-      {isActivePanel('notificationsMenu') ? (
+      {isActive ? (
         <Close20 />
       ) : alerts?.length ? (
         <NotificationNew20 className={styles.unreadNotificationsIndicator} title="Unread alerts" />

@@ -2,8 +2,8 @@
 @import "~carbon-components/src/globals/scss/vars";
 
 .unreadNotificationsIndicator > circle {
-  color: red;
-  stroke: white;
+  color: $danger;
+  stroke: $ui-02;
   stroke-width: 2px;
 }
 
@@ -11,6 +11,10 @@
   background-color: transparent;
 
   &:hover {
-    background-color: $brand-02;
+    @include brand-02(background-color)
   }
+}
+
+.activeMenuButton {
+  @include brand-02(background-color)
 }

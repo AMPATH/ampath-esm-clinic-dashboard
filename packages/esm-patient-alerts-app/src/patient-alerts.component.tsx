@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { showToast, usePatient, useStore } from '@openmrs/esm-framework';
 import { SearchSkeleton, ToastNotification } from 'carbon-components-react';
 import { useAlerts } from './patient-alerts.resource';
-import { patientAlertsStore, setHasUnreadAlerts, setHasViewedAlerts, setAlerts } from './store';
+import { patientAlertsStore, setHasViewedAlerts, setAlerts } from './store';
 import styles from './patient-alerts.scss';
 
 interface PatientAlertsComponentProps {
@@ -18,7 +18,6 @@ export default function PatientAlertsComponent({ expanded }: PatientAlertsCompon
 
   React.useEffect(() => {
     if (!expanded && alerts.length && !hasViewedAlerts) {
-      setHasUnreadAlerts(true);
       setAlerts(alerts);
       alerts.map((alert) => {
         showToast({

@@ -1,11 +1,16 @@
 ![Node.js CI](https://github.com/ampath/ampath-esm-clinic-dashboard/workflows/Node.js%20CI/badge.svg)
-# Ampath Clinic dashboard
 
-This is a [lerna](https://lerna.js.org) project containing ampath clinic dashboard micro-frontend.
-This package includes the following
+# Ampath Clinic Dashboard
+
+This is a [lerna](https://lerna.js.org) project containing packages that make up the AMPATH Clinic Dashboard.
+
+## Available Packages
+
+The packages bundled in this repo include:
 
   - [@ampath/esm-hiv-clinic-dashboard-app](packages/esm-hiv-clinic-dashboard-app)
   - [@ampath/esm-hiv-summary-app](packages/esm-hiv-summary-app)
+  - [@ampath/esm-patient-alerts-app](packages/esm-patient-alerts-app) 
 
 ## Repository Development
 
@@ -16,7 +21,6 @@ This package includes the following
 - lerna  ```sh npm install lerna -g ```
 
 ### Getting started
-
 
 To install and setup the repository once cloned, just use the following command
 

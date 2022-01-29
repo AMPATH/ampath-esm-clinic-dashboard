@@ -37,7 +37,6 @@ describe('NotificationsMenuButtonComponent', () => {
   test('renders an icon button in the navbar with an unread notifications indicator when unread notifications are present', () => {
     mockUseStore.mockImplementationOnce(() => ({
       alerts: mockAlerts,
-      hasUnreadAlerts: true,
       hasViewedAlerts: false,
     }));
 
@@ -50,7 +49,6 @@ describe('NotificationsMenuButtonComponent', () => {
   test('renders an icon button in the navbar without an unread notifications indicator when there are no notifications (or no unread notifications) to display', () => {
     mockUseStore.mockImplementationOnce(() => ({
       alerts: [],
-      hasUnreadAlerts: false,
       hasViewedAlerts: false,
     }));
 

@@ -2,8 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { showToast, usePatient, useStore } from '@openmrs/esm-framework';
 import { SearchSkeleton, ToastNotification } from 'carbon-components-react';
+import { patientAlertsStore, setAlerts, setPatientUuid } from './store';
 import { useAlerts } from './patient-alerts.resource';
-import { patientAlertsStore, setHasViewedAlerts, setAlerts } from './store';
 import styles from './patient-alerts.scss';
 
 interface PatientAlertsComponentProps {
@@ -12,12 +12,19 @@ interface PatientAlertsComponentProps {
 
 export default function PatientAlertsComponent({ expanded }: PatientAlertsComponentProps) {
   const { t } = useTranslation();
-  const { patient } = usePatient();
-  const { alerts, isLoading } = useAlerts(patient?.id);
-  const { hasViewedAlerts } = useStore(patientAlertsStore);
+  const { patientUuid: uuid, alerts: storedAlerts } = useStore(patientAlertsStore);
+  const { patientUuid } = usePatient();
+  const state = React.useMemo(() => ({ patientUuid }), [patientUuid]);
+  const { alerts, isLoadingAlerts } = useAlerts(state.patientUuid !== uuid ? uuid : state.patientUuid);
 
   React.useEffect(() => {
-    if (!expanded && alerts.length && !hasViewedAlerts) {
+    if (patientUuid != uuid) {
+      setPatientUuid(patientUuid);
+    }
+  }, [patientUuid, uuid]);
+
+  React.useEffect(() => {
+    if (!isLoadingAlerts && alerts.length && JSON.stringify(alerts) !== JSON.stringify(storedAlerts)) {
       setAlerts(alerts);
       alerts.map((alert) => {
         showToast({
@@ -28,28 +35,30 @@ export default function PatientAlertsComponent({ expanded }: PatientAlertsCompon
           millis: 10000,
         });
       });
-      setHasViewedAlerts(true);
     }
-  }, [expanded, alerts, hasViewedAlerts]);
+  }, [alerts, isLoadingAlerts, storedAlerts]);
 
   if (expanded) {
     return (
       <div className={styles.notificationsPanel}>
-        {isLoading && patient?.id ? <SearchSkeleton role="progressbar" className={styles.loading} /> : null}
-        {patient?.id && alerts?.length ? (
+        {isLoadingAlerts ? <SearchSkeleton role="progressbar" className={styles.loading} /> : null}
+        {alerts?.length ? (
           <div>
-            {alerts.map((alert, index) => (
-              <ToastNotification
-                lowContrast
-                key={index}
-                kind={alert.type === 'danger' ? 'error' : alert.type}
-                subtitle={<span>{alert.message}</span>}
-                title={alert.title}
-              />
-            ))}
+            {alerts.map((alert, index) => {
+              return (
+                <ToastNotification
+                  lowContrast
+                  key={index}
+                  kind={alert.type === 'danger' ? 'error' : alert.type}
+                  subtitle={<span>{alert.message}</span>}
+                  title={alert.title}
+                  hideCloseButton
+                />
+              );
+            })}
           </div>
         ) : null}
-        {!isLoading && patient?.id && !alerts?.length ? (
+        {!isLoadingAlerts && !alerts?.length ? (
           <p className={styles.emptyState}>
             {t('noNotifications', 'There are no notifications to display for this patient.')}
           </p>

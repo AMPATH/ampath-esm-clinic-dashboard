@@ -4,14 +4,12 @@ import { Reminder } from './patient-alerts.resource';
 
 export interface PatientAlertsStore {
   alerts: Array<Reminder>;
-  hasViewedAlerts: boolean;
-  patientId: string | null;
+  patientUuid: string | null;
 }
 
 export const patientAlertsStore: Store<PatientAlertsStore> = createGlobalStore('patient-alerts', {
   alerts: [],
-  hasViewedAlerts: false,
-  patientId: null,
+  patientUuid: null,
 });
 
 export const setAlerts = patientAlertsStore.action((state, value: Array<Reminder>) => ({
@@ -19,7 +17,7 @@ export const setAlerts = patientAlertsStore.action((state, value: Array<Reminder
   alerts: value,
 }));
 
-export const setHasViewedAlerts = patientAlertsStore.action((state, value: boolean) => ({
+export const setPatientUuid = patientAlertsStore.action((state, value: string) => ({
   ...state,
-  hasViewedAlerts: value,
+  patientUuid: value,
 }));

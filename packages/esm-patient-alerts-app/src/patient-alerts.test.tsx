@@ -1,6 +1,6 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import { openmrsFetch } from '@openmrs/esm-framework';
+import { openmrsFetch, useStore } from '@openmrs/esm-framework';
 import { mockPatient } from '../../../__mocks__/mock-patient';
 import { swrRender, waitForLoadingToFinish } from '../../../tools/test-helpers';
 import PatientAlertsComponent from './patient-alerts.component';
@@ -10,6 +10,7 @@ const testProps = {
 };
 
 const mockOpenmrsFetch = openmrsFetch as jest.Mock;
+const mockUseStore = useStore as jest.Mock;
 
 const testReminders = [
   {
@@ -36,6 +37,9 @@ jest.mock('@openmrs/esm-framework', () => {
       error: null,
       isLoading: false,
       patient: mockPatient,
+      patientUuid: mockPatient.id,
+    })),
+    useStore: jest.fn(() => ({
       patientUuid: mockPatient.id,
     })),
   };

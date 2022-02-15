@@ -1,17 +1,18 @@
 import dayjs from 'dayjs';
-import useSWR from 'swr';
 import { NotificationKind } from 'carbon-components-react';
 import { openmrsFetch } from '@openmrs/esm-framework';
+import useSWRImmutable from 'swr/immutable';
+import useSWR from 'swr';
 
 export interface Reminder {
-  action: boolean;
   display: {
     toast: boolean;
-    banner: string;
+    banner: boolean;
   };
   message: string;
   title: string;
   type: NotificationKind | 'danger';
+  action?: boolean;
   addContacts?: boolean;
   updateContacts?: boolean;
   auto_register?: boolean;
@@ -34,6 +35,6 @@ export function useAlerts(patientUuid: string) {
   return {
     alerts: data ? data?.data?.result?.reminders : [],
     isError: error,
-    isLoading: patientUuid && !data && !error,
+    isLoadingAlerts: patientUuid && !data && !error,
   };
 }

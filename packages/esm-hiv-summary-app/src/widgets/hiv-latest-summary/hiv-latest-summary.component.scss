@@ -5,7 +5,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   margin: $spacing-03 $spacing-05;
-  overflow-x: scroll;
+}
+
+:global(.omrs-breakpoint-lt-desktop) .hivLatestSummaryWrapper{
+    grid-template-columns: 1fr 1fr;
 }
 
 .contraceptionContainer {

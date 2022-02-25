@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './hiv-latest-summary.component.scss';
 import { formatDate, determineEligibilityForContraception, zeroVl, loadHivSummary } from '../helper';
 import isEmpty from 'lodash-es/isEmpty';
-import { HIVSummary, PatientContraceptionEligibility } from '../../types';
 import WarningAlt16 from '@carbon/icons-react/es/warning--alt/20';
 import HivSummaryLabel from '../hiv-summary-label/hiv-summary-label.component';
 import { useTranslation } from 'react-i18next';
@@ -17,8 +16,6 @@ interface HivLatestSummaryProps {
 const HivLatestSummary: React.FC<HivLatestSummaryProps> = ({ patient }) => {
   const { t } = useTranslation();
   const { hivSummary: hivSummaryData, error, isValidating } = useHIVSummary(patient.id);
-  const [patientContraception, setContraceptionEligibilityStatus] = useState<PatientContraceptionEligibility>(null);
-  const [hivSummary, setHivSummary] = React.useState<HIVSummary>();
 
   const withContraceptionPeriodStyles = (period: string) => {
     switch (period?.toLocaleLowerCase()) {
@@ -33,19 +30,15 @@ const HivLatestSummary: React.FC<HivLatestSummaryProps> = ({ patient }) => {
     }
   };
 
-  React.useEffect(() => {
-    if (hivSummaryData?.length) {
-      const hivSum = loadHivSummary(hivSummaryData);
-      setContraceptionEligibilityStatus(determineEligibilityForContraception(hivSum, patient));
-      setHivSummary(hivSum);
-    }
-  }, [hivSummaryData, patient]);
+  const hivSummary = React.useMemo(() => loadHivSummary(hivSummaryData), [hivSummaryData]);
 
   return (
     <>
       {error && <ErrorState headerTitle={t('latestHIVSummary', 'Latest HIV Summary')} error={error} />}
-      {hivSummaryData.length === 0 && !error && <EmptyState headerTitle="HIV Summary" displayText="HIV Summary" />}
-      {hivSummary && (
+      {Object.keys(hivSummary).length === 0 && !error && (
+        <EmptyState headerTitle="HIV Summary" displayText="HIV Summary" />
+      )}
+      {Object.keys(hivSummary).length > 0 && (
         <div className={styles.hivLatestSummaryWrapper}>
           <section>
             <section id="ARV">
@@ -124,17 +117,17 @@ const HivLatestSummary: React.FC<HivLatestSummaryProps> = ({ patient }) => {
             <HivSummaryLabel
               title={t('contraceptionMethod', 'Contraception Method')}
               value={
-                patientContraception?.eligiblePatient ? (
+                determineEligibilityForContraception(hivSummary, patient)?.eligiblePatient ? (
                   <div
                     className={`${styles.contraceptionContainer} ${withContraceptionPeriodStyles(
-                      hivSummary.contraceptive_method.period,
+                      hivSummary.contraceptive_method?.period,
                     )}`}>
-                    {hivSummary?.contraceptive_method.period !== 'Long term' && <WarningAlt16 />}
+                    {hivSummary?.contraceptive_method?.period !== 'Long term' && <WarningAlt16 />}
                     {hivSummary?.contraceptive_method?.period && hivSummary?.contraceptive_method?.period}
                     {`(${hivSummary?.contraceptive_method?.name.toUpperCase()})`}
                   </div>
                 ) : (
-                  <div>{patientContraception?.ineligibilityReason}</div>
+                  <div>{determineEligibilityForContraception(hivSummary, patient)?.ineligibilityReason}</div>
                 )
               }
             />

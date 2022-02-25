@@ -68,7 +68,7 @@ export function determineIfCD4IsPending(hivSummary: HIVSummary) {
 }
 
 export const loadHivSummary = (data: Array<HIVSummary>) => {
-  let hivSummary: HIVSummary;
+  let hivSummary: HIVSummary = {} as HIVSummary;
   for (const summary of data) {
     if (summary.is_clinical_encounter === 1) {
       hivSummary = summary;
@@ -79,7 +79,7 @@ export const loadHivSummary = (data: Array<HIVSummary>) => {
     }
   }
   const lastVlDate = getLatestVlDate(data);
-  if (endDateIsBeforeStartDate(hivSummary.vl_1_date, lastVlDate)) {
+  if (endDateIsBeforeStartDate(hivSummary?.vl_1_date, lastVlDate)) {
     const filtered = find(data, (summaryObj: HIVSummary) => {
       const vlDateDayJS = formatDate(summaryObj['vl_1_date']);
       const lastVlDateDayJS = formatDate(lastVlDate);

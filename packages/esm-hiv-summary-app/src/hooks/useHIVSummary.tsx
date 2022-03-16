@@ -49,7 +49,7 @@ export const useHIVSummary = (patientUuid: string, startIndex: number = 0, limit
     }
   }, [hivSummaryResponse]);
 
-  return { hivSummary: summary, error, isLoading: patientUuid && !summary && !error, isValidating };
+  return { hivSummary: summary, error, isLoading: !hivSummaryResponse && !error, isValidating };
 };
 
 /**

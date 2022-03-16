@@ -2,12 +2,12 @@
 @import "~@openmrs/esm-styleguide/src/vars";
 
 .hivLatestSummaryWrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  margin: $spacing-03 $spacing-05;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: $spacing-03 $spacing-05;
 }
 
-:global(.omrs-breakpoint-lt-desktop) .hivLatestSummaryWrapper{
+:global(.omrs-breakpoint-lt-desktop) .hivLatestSummaryWrapper {
     grid-template-columns: 1fr 1fr;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .contraceptionContainer svg {
-    margin-right: .5rem;
+    margin-right: 0.5rem;
 }
 
 .hivLatestSummaryWrapper section {
@@ -27,7 +27,7 @@
 
 .hivLatestSummaryWrapper section > p {
     color: $color-gray-70;
-    padding: .125rem 0;
+    padding: 0.125rem 0;
     @extend .productiveHeading01;
 }
 
@@ -43,4 +43,8 @@
 .danger {
     color: $danger;
     fill: $danger;
+}
+
+.cervicalCancerScreeningContainer {
+    margin-top: $spacing-06;
 }

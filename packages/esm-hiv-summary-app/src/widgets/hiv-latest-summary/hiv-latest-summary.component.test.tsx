@@ -4,11 +4,29 @@ import { render, RenderResult, screen } from '@testing-library/react';
 import { mockPatient } from '../../../../../__mocks__/mock-patient';
 import { mockHIVSummary } from '../../../../../__mocks__/mock-hiv-summary';
 import * as useHivSummary from '../../hooks/useHIVSummary';
+import * as useCervicalCancerScreening from '../../hooks/useCervicalScreeningSummary';
+
+const cervicalCancerSummary = [
+  {
+    person_id: 26600,
+    test_date: '14-09-2016',
+    via_or_via_vili: 1115,
+    pap_smear: null,
+    hpv: null,
+    uuid: 'dcab351d-afa8-4dad-862f-f01905ea6b87',
+    test: 'VIA or VIA/VILI',
+    via_test_result: 'NORMAL',
+  },
+];
 
 describe('<HivLatestSummary/>', () => {
   let result: RenderResult;
   const renderHIVSummary = () => {
     spyOn(useHivSummary, 'useHIVSummary').and.returnValue({ hivSummary: mockHIVSummary, error: null });
+    spyOn(useCervicalCancerScreening, 'useCervicalCancerSummary').and.returnValue({
+      cervicalCancerScreeningSummary: cervicalCancerSummary,
+      loading: false,
+    });
     result = render(<HivLatestSummary patient={mockPatient} />);
   };
 
@@ -39,5 +57,13 @@ describe('<HivLatestSummary/>', () => {
     expect(screen.getByText(/INH Prophylaxis Start Date/i)).toBeInTheDocument();
     expect(screen.getByText(/INH Prophylaxis End Date/i)).toBeInTheDocument();
     expect(screen.getByText(/Current WHO Stage/i)).toBeInTheDocument();
+  });
+
+  it('should display cervical cancer summary', () => {
+    expect(screen.getByText(/Cervical cancer screening/)).toBeInTheDocument();
+    expect(screen.getByText(/^Date$/i)).toBeInTheDocument();
+    expect(screen.getByText(/^14-09-2016$/i)).toBeInTheDocument();
+    expect(screen.getByText(/^Result$/i)).toBeInTheDocument();
+    expect(screen.getByText(/^NORMAL$/i)).toBeInTheDocument();
   });
 });

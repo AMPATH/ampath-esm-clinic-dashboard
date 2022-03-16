@@ -181,3 +181,14 @@ export interface DashboardConfig extends DashboardLinkConfig {
   slot: string;
   config: DashbardGridConfig | DashboardTabConfig;
 }
+
+export interface CervicalCancerScreening {
+  person_id: number;
+  test_date: string;
+  via_or_via_vili: number;
+  pap_smear: string | null;
+  hpv: string | null;
+  uuid: string;
+  test: string;
+  via_test_result: string;
+}

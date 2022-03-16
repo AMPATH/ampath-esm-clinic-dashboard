@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { ErrorState } from '../error/error-state.component';
 import { useHIVSummary } from '../../hooks/useHIVSummary';
 import { EmptyState } from '../empty-state';
+import { useCervicalCancerSummary } from '../../hooks/useCervicalScreeningSummary';
+import { InlineLoading } from 'carbon-components-react';
 
 interface HivLatestSummaryProps {
   patient: fhir.Patient;
@@ -15,8 +17,8 @@ interface HivLatestSummaryProps {
 
 const HivLatestSummary: React.FC<HivLatestSummaryProps> = ({ patient }) => {
   const { t } = useTranslation();
-  const { hivSummary: hivSummaryData, error, isValidating } = useHIVSummary(patient.id);
-
+  const { cervicalCancerScreeningSummary, loading } = useCervicalCancerSummary(patient.id);
+  const { hivSummary: hivSummaryData, error, isLoading } = useHIVSummary(patient.id);
   const withContraceptionPeriodStyles = (period: string) => {
     switch (period?.toLocaleLowerCase()) {
       case 'short term':
@@ -31,7 +33,7 @@ const HivLatestSummary: React.FC<HivLatestSummaryProps> = ({ patient }) => {
   };
 
   const hivSummary = React.useMemo(() => loadHivSummary(hivSummaryData), [hivSummaryData]);
-
+  if (isLoading) return <InlineLoading description={t('loading', 'Loading...')} />;
   return (
     <>
       {error && <ErrorState headerTitle={t('latestHIVSummary', 'Latest HIV Summary')} error={error} />}
@@ -111,6 +113,20 @@ const HivLatestSummary: React.FC<HivLatestSummaryProps> = ({ patient }) => {
                 )
               }`}
             />
+
+            <section id="cervicalCancerScreening" className={styles.cervicalCancerScreeningContainer}>
+              {loading && <InlineLoading description={t('loading', 'Loading...')} />}
+              {cervicalCancerScreeningSummary.length ? (
+                <>
+                  <p>{t('cancerScreening', 'Cervical cancer screening')}</p>
+                  <HivSummaryLabel title={t('date', 'Date')} value={cervicalCancerScreeningSummary[0].test_date} />
+                  <HivSummaryLabel
+                    title={t('testResult', 'Result')}
+                    value={cervicalCancerScreeningSummary[0].via_test_result}
+                  />
+                </>
+              ) : null}
+            </section>
           </section>
           <section id="Other">
             <p>{t('other', 'Other')}</p>

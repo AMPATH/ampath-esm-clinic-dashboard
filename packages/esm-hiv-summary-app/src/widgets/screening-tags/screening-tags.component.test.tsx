@@ -1,7 +1,6 @@
 import React from 'react';
 import { screen, render } from '@testing-library/react';
 import ScreeningTags from './screening-tags.component';
-import { useCurrentPatient } from '@openmrs/esm-framework';
 import { mockPatient } from '../../../../../__mocks__/mock-patient';
 import * as useHivSummary from '../../hooks/useHIVSummary';
 import { mockHIVSummary } from '../../../../../__mocks__/mock-hiv-summary';
